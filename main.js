@@ -7,7 +7,7 @@ app.on('ready', () => {
     width: 800,
     height: 600
   });
-  mainWindow.loadURL(`file://${__dirname}/src/dos.html`);
+  mainWindow.loadURL(`file://${__dirname}/app/dos.html`);
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
