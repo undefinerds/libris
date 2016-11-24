@@ -1,0 +1,109 @@
+transform()
+  -webkit-transform: arguments
+  -moz-fransform: arguments
+  -ms-transform: arguments
+  -o-transform: arguments
+  transform: arguments
+
+font()
+  font-family: arguments, serif
+
+.center
+  position: absolute
+  top: 50%
+  left: 50%
+  transform(translate(-50%, -50%))
+
+html, body, article, section, header, footer, aside, blockquote, form, ul, ol
+  margin: 0px
+  padding: 0px
+  border: 0px
+  border-style: none
+  display: block
+  color: #111
+  text-decoration: none
+
+html, body
+  max-width: 100vw
+  min-height: 100vh
+
+body
+  background: #179044
+
+p, strong, figcaption, li, h1, h2, h3, h4, h5, h6, header, blockquote
+  font('Nobile')
+  color: #F3F3F3
+
+.hidden
+    display: none
+
+#search
+  min-width: 90vw
+  max-height: 25vh
+
+#search input[type="text"]
+  padding: 0.435rem 0.835rem
+  border: none
+  border-bottom: 4px solid #632222
+  width: 75%
+  height: 80%
+  box-sizing: border-box
+
+#search input[type="text"]:focus
+  border-bottom: 4px solid #FFF
+
+#search input[type="submit"]
+    display: none
+
+#search img, svg
+  width: 4.67em
+  cursor: pointer
+
+.epub p
+  color: #111
+
+.multiple-borders
+  box-shadow: 0px 0px 0px 7px #632222, 0px 0px 0px 10px #fff
+
+
+.imgrid
+  margin-top: 56vh
+  position: absolute
+  padding: 0.25em
+  overflow: hidden
+
+.imgrid li
+  list-style: none
+  float: left
+  width: 40vmin
+  padding: 0.25em
+
+.imgrid img
+  display: block
+
+.imgrid li img
+  width: 100%
+
+.imgrid li:nth-child(odd)
+  clear: left
+
+.imgrid li:hover
+  background-color: #FFF
+  box-shadow: 0px 0px 7px 2px #333
+
+figure figcaption
+    background-color: #111
+    color: #FFF
+    width: 100%
+    padding: 0.6em0 0.32em 
+
+body > section
+    padding: 15px
+    width: auto
+    height: 100%
+
+#bookGrid
+  margin: auto
+
+a
+  text-decoration: none
