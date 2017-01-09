@@ -1,40 +1,27 @@
 {
   "name": "libris",
-  "version": "1.0.0",
-  "description": "Virtual library for kids",
+  "version": "0.1.0",
+  "private": true,
   "main": "main.js",
+  "bin": {
+    "electron": "/usr/lib/electron/electron"
+  },
+  "devDependencies": {
+    "react-scripts": "0.8.5"
+  },
   "dependencies": {
-    "mongorito": "^2.2.0",
-    "pug": "^2.0.0-beta6",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "react-redux": "^4.4.6",
-    "redux": "^3.6.0",
-    "stylus": "^0.54.5"
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "4.4.5",
+    "react-router": "2.6.1",
+    "react-router-redux": "4.0.5",
+    "redux": "3.5.2",
+    "epub": "^0.1.6"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "npm run test.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/undefinerds/libris.git"
-  },
-  "keywords": [
-    "electron",
-    "react",
-    "desktop",
-    "library",
-    "ex",
-    "libris",
-    "books",
-    "epub",
-    "redux"
-  ],
-  "author": "Jhinel Arcaya, Joseph Perez, Daviannys Miquilena, Alcides Pacheco, Yandra Yepez",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/undefinerds/libris/issues"
-  },
-  "homepage": "https://github.com/undefinerds/libris#readme"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
 }

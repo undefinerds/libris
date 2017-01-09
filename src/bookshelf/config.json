@@ -1,0 +1,11 @@
+{
+  "extensions":
+  [
+    "epub", "mobi", "pdf"
+  ],
+  "palette": "default",
+  "directories":
+  [
+    "default"
+  ]
+}
