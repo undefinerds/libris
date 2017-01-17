@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = function (root=process.env.HOME) {
   var core = {
     readdir: (dir='', opt) => {
-      if(!path.isAbsolute(dir))
+      if(!path.isAbsolute(dir) || !path.isAbsolute(root))
         dir = path.join(root, dir);
       const promise = new Promise((resolve, reject) => {
         fs.readdir(dir, function(err, files) {
@@ -14,7 +14,10 @@ module.exports = function (root=process.env.HOME) {
             files = files.filter((filename) => fs.statSync(path.join(dir, filename)).isFile());
           if(!!opt.showHidden)
             resolve(files);
-          resolve(files.filter((filename) => filename[0] !== '.'));
+          if(Array.isArray(files))
+            resolve(files.filter((filename) => filename[0] !== '.'));
+          else
+            resolve(files);
         });
       });
       return promise;

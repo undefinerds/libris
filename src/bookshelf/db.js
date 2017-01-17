@@ -1,43 +1,45 @@
-import Mongorito, { Model } from 'mongorito';
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-const Book = Model.extend({collection: 'books'});
-
-function connectDB() {
-    Mongorito.connect('localhost/Libris');
+const options = {
+  host: process.env.HOST || 'localhost',
+  database: process.env.DATABASE || 'Libris'
 }
 
-function disconnectDB() {
-    Mongorito.disconnect();
-}
+mongoose.connect(`mongodb://${ options.host }/${ options.database }`);
+const bSchema = new Schema({
+  title: String,
+  author: String,
+  genre: String,
+  pubDate: Date,
+  url: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  language: String,
+  editorial: String,
+  saved: Date,
+  views: Number
+});
 
-export function createBook(title=null, author=null, url=null, edition=null, gender=[], editorial=null, pubDate=null) {
-    connectDB();
-    if(title && author && url) {
-        const book = new Book({
-            title,
-            author,
-            url,
-            edition,
-            gender,
-            editorial,
-            pubDate: new Date(pubDate)
-        });
-        yield book.save();
-        return book;
-    }
-    disconnectDB();
-}
+bSchema.pre('save', function(next) {
+  this.saved = new Date();
+  this.views = 0;
+  next();
+});
 
-export function updateBook(id, options) {
-    connectDB();
-    const book = yield Book.where('_id', id).find();
-    if(book) {
-        for (let key in options) {
-            value = options[key];
-            book.set(key, value));
-        }
-        yield book.save();
-        return book;
-    }
-    disconnectDB();
+const bookshelf = new Promise((resolve, reject) => {
+  mongoose.connection
+  .on('error', () => {
+    reject('Error');
+  })
+  .once('open', function () {
+    const Bookshelf = mongoose.Model('Bookshelf', bSchema);
+    resolve(Bookshelf);
+  });
+});
+
+module.exports = async function() {
+  return await bookshelf();
 }

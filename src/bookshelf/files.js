@@ -20,7 +20,7 @@ module.exports = function getEbookPaths(dir, next, callback) {
   fsReader(dir).list()
   .then((list) => {
     list.forEach((filename, i) => {
-      var path = join(dir, filename)
+      var path = join(dir, filename);
       if(fstats(path).isDirectory()){
         getEbookPaths(path, next, function(err, f){
           if(err) {
