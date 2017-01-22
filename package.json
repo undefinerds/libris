@@ -9,22 +9,22 @@
     "electron-rebuild": "./node_modules/.bin/electron-rebuild"
   },
   "devDependencies": {
+    "autoprefixer": "^6.6.1",
     "babel": "^5.6.10",
     "babel-core": "^5.6.11",
     "babel-loader": "^5.2.2",
     "babel-preset-es2015": "^6.22.0",
     "css-loader": "^0.15.1",
     "electron-packager": "^4.1.3",
-    "electron-rebuild": "^0.2.2",
+    "electron-rebuild": "^1.5.7",
     "node-libs-browser": "^0.5.2",
     "postcss": "^5.2.11",
     "style-loader": "^0.12.3",
+    "stylelint": "^7.7.1",
     "webpack": "^1.9.12",
     "webpack-dev-server": "^1.9.0",
     "webpack-livereload-plugin": "^0.10.0",
-    "webpack-target-electron-renderer": "^0.4.0",
-    "autoprefixer": "^6.6.1",
-    "stylelint": "^7.7.1"
+    "webpack-target-electron-renderer": "^0.4.0"
   },
   "dependencies": {
     "electron-prebuilt": "^1.4.13",
@@ -44,5 +44,5 @@
   "bugs": {
     "url": "https://github.com/undefinerds/libris/issues"
   },
-    "homepage": "https://github.com/undefinerds/libris#readme"
+  "homepage": "https://github.com/undefinerds/libris#readme"
 }
