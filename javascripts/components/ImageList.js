@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Image extends Component {
+class ImageList extends Component {
   render() {
     return (
       <div>
@@ -11,4 +11,4 @@ class Image extends Component {
   }
 }
 
-export default Image;
+export default ImageList;

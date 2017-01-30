@@ -5,9 +5,7 @@ import * as actionCreators from '../actions';
 
 //Passing the state through components via props
 function mapStateToProps(state) {
-  return {
-    ...state
-  }
+  return Object.assign({}, state);
 }
 
 // Binding to props! This is like a cake

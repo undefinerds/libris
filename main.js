@@ -1,5 +1,5 @@
 var { app, BrowserWindow, crashReporter } = require('electron');
-
+var installExtensions = require('./devTools.config');
 crashReporter.start({
   productName: 'Libris',
   companyName: 'undefinerds',
@@ -22,6 +22,7 @@ app.on('ready', function() {
   });
 
   if (process.env.NODE_ENV !== 'production') {
+    installExtensions();
     mainWindow.openDevTools();
   }
 
