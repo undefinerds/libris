@@ -14,9 +14,9 @@ fs.readdirSync('node_modules')
 
 module.exports = {
   context: __dirname,
-  devtool: 'sourcemap',
+  devtool: 'source-map',
 
-  entry: { app: ['babel-polyfill', 'webpack/hot/dev-server', './javascripts/index.js'] },
+  entry: ['babel-polyfill', 'webpack/hot/dev-server', './javascripts/index.js'],
 
   output: {
     path: path.resolve(__dirname, 'public'),
@@ -34,8 +34,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: { presets: ['es2015', 'react'] }
+        loader: 'babel-loader'
       },
       {
         test: /\.css$/,
@@ -44,6 +43,10 @@ module.exports = {
           'css-loader?importLoaders=1&localIdentName=[path]_[name]_[local]__[hash:base64:5]',
           'postcss-loader'
         ]
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000'
       }
     ]
   },
@@ -51,9 +54,10 @@ module.exports = {
   target: 'electron-renderer',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-  ]//,
+    new webpack.NoEmitOnErrorsPlugin()
+  ]
 
-  //resolve: {
-    //    extensions: ['', '.js', '.jsx', '.json', '.node' ]
-  //}
+ // resolve: {
+   // extensions: ['', '.js', '.jsx', '.json', '.node' ]
+ // }
 }

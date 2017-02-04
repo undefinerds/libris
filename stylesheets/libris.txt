@@ -1,2 +1,2 @@
 palette1:
-{brown: #8c7676, turquoise: #99f0ca, teal: #c9fdd7, cream: #fdffe7
+{brown: #8c7676, turquoise: #99f0ca, teal: #c9fdd7, cream: #fdffe7}

@@ -13,7 +13,7 @@ export function configureStore(initialState={}) {
 }
 
 const store = configureStore({
-  loader: false,
+  loader: { show: 'visible' },
   books: []
 });
 

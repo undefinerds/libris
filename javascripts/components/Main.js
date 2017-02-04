@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import Search from './Search';
+import styles from '../../stylesheets/main.css';
 
 // Loader :)
 
 class Main extends Component {
-  componentWillMount() {
-    this.props.initializeStore();
-    return 0;
+
+  handleChange(e) {
+    let value = e.target.value;
+    console.log(value);
+    let className = (value !== '') ? 'typed' : '';
+    console.log(className);
+    let matches = this.props.filter(book => [book.title.toLowerCase(), book.author.toLowerCase()]
+      .join(' ').includes(value));
+    this.props.updateForm(value, matches, className);
   }
+
+  handleSubmit(e) {
+    e.preventDefault();
+  }
+
   render() {
-    let loadMessage = (<h1>Cargando...</h1>);
     return (
-      <div>
-      {(this.props.loader.show) ? loadMessage : <div></div>}
-      <header>
-        <h1>Libris!</h1>
-        <Link to="/search">Ir a busqueda</Link>
-      </header>
-      { (this.props.loader.show && !!this.props.loader.error) ? this.props.loader.error : '' }
-    </div>
+    <div style={styles}>
+      <form className={this.props.form.style} id="search" name="search" onSubmit={this.handleSubmit}>
+        <input type="text" id="searchbox" name="searchbox" value={this.props.form.value} onChange={e => this.handleChange.bind(this, e)} />
+      <label target="searchbox">
+        <img className="center" src="../glass.png" alt="lupa" />
+      </label>
+      </form>
+      <Search {...this.props} bookGrid={this.props.matches} />
+      </div>
     )
   }
 }

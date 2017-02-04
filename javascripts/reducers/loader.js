@@ -4,11 +4,11 @@ export default function loader(state={}, action) {
   switch(action.type) {
     case SHOW:
       return Object.assign({}, state, {
-        show: true
+        show: 'visible'
       });
     case HIDE:
       return Object.assign({}, state, {
-        show: false
+        show: 'hidden'
       });
     case 'LOG':
       return Object.assign({}, state, {

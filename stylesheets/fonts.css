@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Georgia'),
+  local('georgia'),
+  url("font/Georgia.ttf") format("truetype")
+}
+
+:root {
+  --serifFonts: "Georgia", "Times New Roman", serif;
+  --sansFonts: "Fira Sans", "Arial", sans;
+  --decoFont: "Romant";
+  --decoFantasyFont: "Sparkly", var(--serifFonts);
+  --decoTechFont: "HeavyData", var(--sansFonts);
+  --decoHistoryFont: "Showboat", var(--decoFont);
+  --decoScienceFont: "Hustlers Rouge", var(--serifFonts);
+  --decoArtFont: "Steelworks", "Comic Sans MS";
+  --decoMisteryFont: "Verve Alternate", "Hustlers Rouge", var(--decoFont);
+  --decoRomanceFont: "Carrington", var(--decoFont);
+}

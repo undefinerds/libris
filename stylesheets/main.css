@@ -1,0 +1,131 @@
+@import "fonts.css";
+@import "colors.css";
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+  font-size: 16px;
+}
+
+:root {
+  background-color: var(--secondaryFontColor);
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  color: var(--mainFontColor);
+  font-family: var(--serifFonts);
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.75rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+}
+
+h6 {
+  font-size: 1.25rem;
+}
+
+p {
+  font-size: 1rem;
+}
+
+.readable > p::first-letter {
+  font-family: var(--decoFont);
+  font-size: 3rem;
+}
+
+.fantasy > p::first-letter {
+  font-family: var(--decoFantasyFont);
+}
+
+.tech > p::first-letter {
+  font-family: var(--decoTechFont);
+}
+
+.history > p::first-letter {
+  font-family: var(--decoHistoryFont);
+}
+
+.science > p::first-letter {
+  font-family: var(--decoScienceFont);
+}
+
+.art > p::first-letter {
+  font-family: var(--decoArtFont);
+}
+
+.mistery > p::first-letter {
+  font-family: var(--decoMisteryFont);
+}
+
+.romance > p::first-letter {
+  font-family: var(--decoRomanceFont);
+}
+
+#search {
+  height: 100vh;
+  margin: 0px;
+  background-color: var(--secondaryColor);
+  color: var(--secondaryFontColor);
+}
+
+#searchbox {
+  height: 3rem;
+  font-size: 1.5rem;
+  width: 60%;
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  border-radius: 50px;
+  border-width: 0px;
+  padding-left: 5px;
+}
+
+#search label {
+  position: absolute;
+  top: 45%;
+  right: 15%;
+  width: 10%;
+}
+
+#search label .center {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#searchbox:focus, #searchbox:hover {
+  border: 10px solid var(--thirdColor);
+}
+
+#search.typed {
+  height: 20vh;
+}
+#search.typed label {
+  top: 5%;
+  height: 2.5rem;
+  width: auto;
+}
+#search.typed #searchbox {
+  top: 5%;
+  height: 2.5rem;
+  font-size: 1.25rem;
+}

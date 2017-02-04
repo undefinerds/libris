@@ -1,0 +1,11 @@
+@import "colors.css";
+
+.preview {
+  background-color: var(--mainBackgroundColor);
+}
+
+.preview img {
+  width: 60%;
+  display: block;
+  margin: auto;
+}

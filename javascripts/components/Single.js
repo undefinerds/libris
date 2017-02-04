@@ -5,10 +5,8 @@ class Preview extends Component {
   render() {
     return (
       <div>
-        <header>
-          <h1>Titulo del Libro</h1>
-        </header>
-        <Link to='/'>Volver al Inicio</Link>
+        <nav><Link to="/">&times;</Link></nav>
+      {this.props.children}
       </div>
     )
   }
