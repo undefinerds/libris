@@ -4,8 +4,86 @@
   background-color: var(--mainBackgroundColor);
 }
 
-.preview img {
-  width: 60%;
+#AppBar {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 10vh;
+  width: 100%;
+  background-color: #FFF;
+}
+
+#AppBar a:first-of-type {
+  font-size: 0.5rem;
+}
+
+.preview button {
   display: block;
   margin: auto;
+  background-color: var(--secondaryColor);
+  color: var(--secondaryFontColor);
+  border: 0px;
 }
+
+.preview header, .preview h1 {
+  text-align: center;
+}
+
+.preview section {
+  margin: 0px;
+  border: 0px;
+  padding: 0px 5% 0px 5%;
+  width: 90%;
+}
+
+.left {
+  float: left;
+}
+
+
+.right {
+  float: right;
+}
+
+.clearfix {
+  clear: both;
+  width: 100%;
+  margin: 5% 0px;
+}
+
+.clearfix button {
+  width: 100%;
+  font-size: 3rem;
+  border-radius: 10px;
+}
+
+.preview aside {
+  position: fixed;
+  z-index: 20;
+  background-color: var(--thirdColor);
+  height: 100vh;
+  width: 15vw;
+  top: -100%;
+  left: -100%;
+}
+
+.preview aside .show {
+  top: 0;
+  left: 0;
+}
+
+.preview img {
+  width: 100%;
+}
+
+.preview section figure {
+  width: 40%;
+  margin: 0px 10px 10px 10px;
+  padding: 0px;
+}
+
+.preview figcaption button {
+  width: 100%;
+  padding: 0.5rem 0px;
+}
+

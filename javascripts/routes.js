@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import Layout from './components/Layout';
 import Main from './components/Main';
-import Search from './components/Search';
 import SearchGrid from './components/SearchGrid';
 import Single from './components/Single';
 import Preview from './components/Preview';

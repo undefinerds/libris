@@ -1,0 +1,31 @@
+
+.grid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.item {
+  width: 30vw;
+  background-color: #FFF;
+  box-shadow: 0px 0px 5px #333;
+}
+
+.item figcaption {
+  padding: 1rem;
+}
+
+.item figcaption h3 {
+  font-size: 1.5rem;
+}
+
+.item img {
+  width: 100%;
+}
+
+.item:hover {
+  box-shadow: 0px 10px 20px #333;
+}
+

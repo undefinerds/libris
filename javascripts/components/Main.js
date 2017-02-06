@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import Search from './Search';
+import SearchGrid from './SearchGrid';
 import styles from '../../stylesheets/main.css';
 
 // Loader :)
@@ -8,13 +8,14 @@ import styles from '../../stylesheets/main.css';
 class Main extends Component {
 
   handleChange(e) {
-    let value = e.target.value;
-    console.log(value);
+    let value = e.target.value.toLowerCase();
     let className = (value !== '') ? 'typed' : '';
-    console.log(className);
-    let matches = this.props.filter(book => [book.title.toLowerCase(), book.author.toLowerCase()]
-      .join(' ').includes(value));
-    this.props.updateForm(value, matches, className);
+    let matches = (value !== '') ? this.props.books
+      .map((_, i) => i)
+      .filter(i => [this.props.books[i].title, this.props.books[i].author]
+      .join(' ').toLowerCase().includes(value)) :
+      this.props.books.map((_, i) => i);
+    this.props.updateForm(className, matches);
   }
 
   handleSubmit(e) {
@@ -25,12 +26,12 @@ class Main extends Component {
     return (
     <div style={styles}>
       <form className={this.props.form.style} id="search" name="search" onSubmit={this.handleSubmit}>
-        <input type="text" id="searchbox" name="searchbox" value={this.props.form.value} onChange={e => this.handleChange.bind(this, e)} />
+        <input type="text" id="searchbox" name="searchbox" onChange={this.handleChange.bind(this)} />
       <label target="searchbox">
         <img className="center" src="../glass.png" alt="lupa" />
       </label>
       </form>
-      <Search {...this.props} bookGrid={this.props.matches} />
+      <SearchGrid {...this.props} indexGrid={this.props.form.matches} />
       </div>
     )
   }

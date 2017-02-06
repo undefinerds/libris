@@ -1,7 +1,7 @@
 :root {
   --mainFontColor: #111;
   --mainBackgroundColor: #fdffe7;
-  --secondaryColor: rgba(108, 166, 89, 1);
-  --thirdColor: rgba(251, 240, 45, 1);
+  --secondaryColor: rgb(0, 209, 178);
+  --thirdColor: rgb(220, 250, 0);
   --secondaryFontColor: #FFF;
 }

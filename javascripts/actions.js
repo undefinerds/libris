@@ -3,6 +3,7 @@ import initializeURL from '../lib/init';
 const Epub = require('epub');
 import config from './config';
 import Promise from 'promise';
+import { resolve as solvePath } from 'path';
 
 export function addBook(name, author, data) {
   return {
@@ -72,7 +73,7 @@ function getImage(book, imgId) {
   console.log(imgId);
   return new Promise((resolve, reject) => {
     if(!imgId)
-      resolve('/glass.png');
+      resolve(solvePath(__dirname, 'glass.png'));
     book.getImage(imgId, function(err, img, mimeType) {
       if(!!err) reject(err);
       resolve(`data:${mimeType || 'image/jpeg'};base64,${img.toString('base64')}`);
@@ -101,8 +102,9 @@ export function initializeStore() {
     dispatch(updateLoader(SHOW));
     initializeURL(dir, config.extensions).then(bookPaths => {
       Promise.all(bookPaths.map(initEbook)).then(books => {
-        dispatch(updateLoader(HIDE));  
-        return dispatch(updateStore('NEW', books));
+        dispatch(updateStore('NEW', books));
+        dispatch(updateForm('', books.map((_, i) => i)));
+        return dispatch(updateLoader(HIDE));
       }).catch(e => { dispatch(showError('LOG', e)) });
     }).catch(e => { dispatch(showError('LOG', e)) });
   };
@@ -116,10 +118,9 @@ export function setFormValues(values) {
   }
 }
 
-export function updateForm(value, matches, style) {
+export function updateForm(style, matches) {
   return function (dispatch) {
-    dispatch(setFormValues({value, style}));
-    console.log('al menos funciono ' + value);
+    dispatch(setFormValues({ style }));
     return dispatch(updateMatches(matches));
   }
 }
@@ -127,6 +128,6 @@ export function updateForm(value, matches, style) {
 export function updateMatches(matches) {
   return {
     type: 'UPDATE_MATCH',
-    matches
+    data: matches
   }
 }

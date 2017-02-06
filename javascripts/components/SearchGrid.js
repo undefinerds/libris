@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-/*
-      <Link to={`${i}`}>
-        //<img src={book.cover} alt={`Cubierta de ${book.title}`} />
-      </Link>
-*/
+import styles from '../../stylesheets/grid.css';
+
 class Book extends Component {
   render() {
     const { book, i } = this.props;
     return (
-      <figure>
+      <figure className="item">
+        <Link to={`/${i}`} style={ {textDecoration: 'none'} }>
+        <img src={book.cover} alt={`Cubierta de ${book.title}`} />
         <figcaption>
-          <Link to={`/${i}`} style={ {textDecoration: 'none'} }><h3>{book.title}</h3></Link>
+          <h3>{book.title}</h3>
           <p>{book.author}</p>
         </figcaption>
+        </Link>
       </figure>
     )
   }
@@ -21,13 +21,10 @@ class Book extends Component {
 
 class SearchGrid extends Component {
   render() {
-    const { bookGrid } = this.props;
+    const { indexGrid, books } = this.props;
     return (
-      <section>
-        { bookGrid.map((book, i) => {
-          const j = this.props.books.findIndex(b => b.url === book.url);
-          return <Book {...this.props} key={i} book={book} i={j} />
-      }) }
+      <section style={styles} className="grid">
+        { indexGrid.map((i, j) => <Book key={j} i={i} book={books[i]} />) }
       </section>
     )
   }

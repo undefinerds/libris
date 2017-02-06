@@ -49,31 +49,31 @@ p {
   font-size: 3rem;
 }
 
-.fantasy > p::first-letter {
+.fantasy > p:first-of-type::first-letter {
   font-family: var(--decoFantasyFont);
 }
 
-.tech > p::first-letter {
+.tech > p:first-of-type::first-letter {
   font-family: var(--decoTechFont);
 }
 
-.history > p::first-letter {
+.history > p:first-of-type::first-letter {
   font-family: var(--decoHistoryFont);
 }
 
-.science > p::first-letter {
+.science > p:first-of-type::first-letter {
   font-family: var(--decoScienceFont);
 }
 
-.art > p::first-letter {
+.art > p:first-of-type::first-letter {
   font-family: var(--decoArtFont);
 }
 
-.mistery > p::first-letter {
+.mistery > p:first-of-type::first-letter {
   font-family: var(--decoMisteryFont);
 }
 
-.romance > p::first-letter {
+.romance > p:first-of-type::first-letter {
   font-family: var(--decoRomanceFont);
 }
 
@@ -99,9 +99,10 @@ p {
 
 #search label {
   position: absolute;
-  top: 45%;
+  top: 50%;
   right: 15%;
-  width: 10%;
+  width: 3rem;
+  margin-top: -1.5rem;
 }
 
 #search label .center {
@@ -120,12 +121,12 @@ p {
   height: 20vh;
 }
 #search.typed label {
-  top: 5%;
+  top: 10%;
   height: 2.5rem;
   width: auto;
 }
 #search.typed #searchbox {
-  top: 5%;
+  top: 10%;
   height: 2.5rem;
   font-size: 1.25rem;
 }

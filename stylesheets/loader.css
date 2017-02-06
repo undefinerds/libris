@@ -30,9 +30,8 @@
 #loaderContainer p::first-letter {
   font-size: 4rem;
   font-family: var(--decoFont);
-  padding: 0px;
-  line-height: 0px;
-  background-color: #EEE;
+  text-transform: uppercase;
+  box-shadow: inset 0px 3.2rem 0px #EEE;
 }
 
 @keyframes turn-eyes {

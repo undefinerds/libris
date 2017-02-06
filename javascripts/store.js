@@ -14,7 +14,10 @@ export function configureStore(initialState={}) {
 
 const store = configureStore({
   loader: { show: 'visible' },
-  books: []
+  books: [],
+  form: {
+    matches: []
+  }
 });
 
 export default store;
