@@ -9,7 +9,8 @@ function mapStateToProps(state) {
   return {
     loader: state.loader,
     books: state.books,
-    form: state.form
+    form: state.form,
+    readable: state.readable
   };
 }
 

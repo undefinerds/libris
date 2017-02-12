@@ -4,7 +4,97 @@
   font-weight: 400;
   src: local('Georgia'),
   local('georgia'),
-  url("font/Georgia.ttf") format("truetype")
+  url("font/Georgia.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Fira Sans'),
+  local('fira sans'),
+  url("font/FiraSans-Book.otf") format("opentype"),
+  url("font/FiraSans-Regular.otf") format("opentype")
+}
+
+@font-face {
+  font-family: 'Romant';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Romant'),
+  local('romant'),
+  url("font/Romant.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Sparkly';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Sparkly'),
+  local('sparkly'),
+  local('Fontdinerdotcom Sparkly'),
+  url("font/sparkly/SpaTT.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'HeavyData';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Heavy Data'),
+  local('heavy data'),
+  local('Heavy Data Nerd Font'),
+  local('heavydata'),
+  url("font/HeavyData.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Showboat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Showboat'),
+  local('showboat'),
+  url("font/Showboat.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Hustlers Rough';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Hustlers Rough'),
+  local('Hustlers Rough Demo'),
+  local('hustlers rough'),
+  url("font/HustlersRoughDemo.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Steelworks';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Steelworks'),
+  local('Steelworks Vintage'),
+  local('Steelworks Vintage Demo'),
+  local('steelworks'),
+  url("font/SteelworksVintageDemo.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Verve Alternate';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Verve Alternate'),
+  local('verve alternate'),
+  local('Verve'),
+  local('verve'),
+  url("font/VerveAlternate.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Carrington';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Carrington'),
+  local('carrington'),
+  url("font/Carrington.ttf") format("truetype");
 }
 
 :root {
@@ -14,8 +104,8 @@
   --decoFantasyFont: "Sparkly", var(--serifFonts);
   --decoTechFont: "HeavyData", var(--sansFonts);
   --decoHistoryFont: "Showboat", var(--decoFont);
-  --decoScienceFont: "Hustlers Rouge", var(--serifFonts);
+  --decoScienceFont: "Hustlers Rough", var(--serifFonts);
   --decoArtFont: "Steelworks", "Comic Sans MS";
-  --decoMisteryFont: "Verve Alternate", "Hustlers Rouge", var(--decoFont);
+  --decoMisteryFont: "Verve Alternate", "Hustlers Rough", var(--decoFont);
   --decoRomanceFont: "Carrington", var(--decoFont);
 }

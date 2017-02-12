@@ -17,6 +17,10 @@ const store = configureStore({
   books: [],
   form: {
     matches: []
+  },
+  readable: {
+    loaded: false,
+    location: 0
   }
 });
 

@@ -1,5 +1,35 @@
 @import "fonts.css";
 
+@keyframes fontChange {
+  0% {
+    font-family: var(--serifFonts);
+    text-transform: uppercase;
+    font-size: 3.4rem;
+  }
+
+  20% {
+    font-family: var(--decoFont);
+  }
+
+  40% {
+    font-family: var(--decoRomanceFont);
+    text-transform: capitalize;
+    font-size: 4rem;
+  }
+
+  60% {
+    font-family: var(--decoTechFont);
+  }
+
+  80% {
+    font-family: var(--decoScienceFont);
+  }
+
+  100% {
+    font-family: var(--decoArtFont);
+  }
+}
+
 #loaderContainer {
   position: fixed;
   width: 100vw;
@@ -20,143 +50,32 @@
 
 #loaderContainer p {
   color: #222;
-  text-transform: uppercase;
-  font-size: 2rem;
+  font-size: 4rem;
+  font-family: inherit;
   text-align: center;
   width: 100%;
   margin-top: 3rem;
+  animation: 10s linear fontChange infinite;
 }
 
-#loaderContainer p::first-letter {
-  font-size: 4rem;
-  font-family: var(--decoFont);
-  text-transform: uppercase;
-  box-shadow: inset 0px 3.2rem 0px #EEE;
-}
-
-@keyframes turn-eyes {
-  0% {
-    transform: translateX(-50%);
-  }
-  50% {
-    transform: translateX(50%);
-	}
-	100% {
-		transform: translateX(-50%);
-	}
-}
-
-.owl {
-      position: fixed;
-      left: 50%;
-      margin-left: -52px;
-      border: 10px solid #05080F;
-      border-radius: 50%;
-      width: 104px;
-      height: 102px;
-      top: 50%;
-      background-color: #6B5734;
-}
-
-  .owl::before,
-  .owl::after {
-    content: " ";
-    border: 6px solid #05080F;
-    height: 10px;
-    bottom: -22px;
-    position: absolute;
-  }
-
-  .owl::before {
-    left: 37px;
-  }
-
-  .owl::after {
-    left: 56px;
-  }
-
-  .owl .ear {
-    position: absolute;
-    top: 21px;
-    width: 13px;
-    height: 12px;
-    background-color: #07080A;
-  }
-
-  .owl .ear-left {
-    left: -15px;
-    border-radius: 0 0 0 90px;
-  }
-
-  .owl .ear-right {
-    right: -15px;
-    border-radius: 0 0 90px 0;
-  }
-
-  .owl .eye {
-    background-color: #F5D62E;
-    border: 10px solid #05080F;
-    border-radius: 50%;
-    width: 47px;
-    height: 45px;
-    position: absolute;
-    top: 19px;
-  }
-
-  .owl .eye-right {
-    right: -11px;
-  }
-
-  .owl .eye-left {
-    left: -9px;
-  }
-
-  .owl .eye .pupil {
-    height: 18px;
-    width: 41px;
-    border-radius: 90px 90px 0 0;
-    background: #4D391E;
-    border: 10px solid #05080F;
-    margin-top: -11px;
-    margin-left: -8px;
-  }
-
-  .owl .eye .pupil:after {
-    content: " ";
-    position: absolute;
-    border-radius: 0 0 90px 90px;
-    background: #050608;
-    top: 23px;
-    left: 11px;
-    width: 25px;
-    height: 12px;
-    animation: 2s ease-in-out turn-eyes infinite;
-  }
-
-  .owl .nose {
-    position: absolute;
-    top: 69px;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 15px 6px 0 6px;
-    border-color: #05080F transparent transparent transparent;
-    left: 47px;
-  }
-
-  .owl .book {
+.owl .book {
     width: 120px;
     height: 80px;
     z-index: 25;
     position: absolute;
     top: 70%;
     margin-left: -7px;
-	}
+  }
 
   .owl .book .left, .owl .book .right {
-    background-color: #99f0ca;
+    background-color: #860e0e;
     border: 5px solid #05080F;
     box-sizing: border-box;
+    color: rgba(240, 162, 5, 1);
+    font-size: 60px;
+    font-family: var(--decoFont);
+    padding: 10px 0px 6px 0px;
+    text-align: center;
   }
 
   .owl .book .left {
@@ -171,4 +90,7 @@
     height: 100%;
     margin-left: 60px;
     transform: skewY(-20deg);
+  }
+  .owl .eye .pupil:after {
+    animation: 2s ease-in-out turn-eyes infinite;
   }

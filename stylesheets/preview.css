@@ -1,7 +1,7 @@
 @import "colors.css";
 
 .preview {
-  background-color: var(--mainBackgroundColor);
+  background-color: #FFF;
 }
 
 #AppBar {
@@ -10,12 +10,9 @@
   left: 0;
   height: 10vh;
   width: 100%;
-  background-color: #FFF;
+  background-color: var(--mainBackgroundColor);
 }
 
-#AppBar a:first-of-type {
-  font-size: 0.5rem;
-}
 
 .preview button {
   display: block;
@@ -23,6 +20,10 @@
   background-color: var(--secondaryColor);
   color: var(--secondaryFontColor);
   border: 0px;
+}
+
+.preview button:hover, .preview button:focus {
+  background-color: var(--secondaryColorDarker);
 }
 
 .preview header, .preview h1 {
@@ -56,6 +57,11 @@
   font-size: 3rem;
   border-radius: 10px;
 }
+
+.preview p {
+  font-size: 1.2rem;
+}
+
 
 .preview aside {
   position: fixed;

@@ -16,10 +16,10 @@ module.exports = {
   context: __dirname,
   devtool: 'source-map',
 
-  entry: ['babel-polyfill', 'webpack/hot/dev-server', './javascripts/index.js'],
+  entry: ['babel-polyfill', 'webpack/hot/dev-server','./javascripts/index.js'],
 
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname || process.cwd(), 'public'),
     filename: 'bundle.js',
     publicPath: 'http://localhost:8080/built/'
   },
@@ -28,7 +28,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'public'),
     publicPath: 'http://localhost:8080/built/'
   },
-  
+
   module: {
     loaders: [
       {
@@ -45,13 +45,13 @@ module.exports = {
         ]
       },
       {
-        test: /\.(jpg|png|woff|woff2|eot|ttf|svg)$/,
+        test: /\.(jpg|png|woff|woff2|eot|otf|ttf|svg)$/,
         loader: 'url-loader?limit=100000'
       }
     ]
   },
   externals: nodeModules,
-  target: 'electron-renderer',
+  target: 'electron',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()

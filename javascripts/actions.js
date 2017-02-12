@@ -3,7 +3,6 @@ import initializeURL from '../lib/init';
 const Epub = require('epub');
 import config from './config';
 import Promise from 'promise';
-import { resolve as solvePath } from 'path';
 
 export function addBook(name, author, data) {
   return {
@@ -48,8 +47,8 @@ export function showError(type, error) {
   }
 }
 
-function read(url) {
-    let book = new Epub(url, '/image/', '/chapter/');
+export function read(url, i) {
+    let book = new Epub(url, `/${i}/image/`, `/${i}/read/`);
     const promise = new Promise((resolve, reject) => {
       book.on('end', () => resolve(book));
       book.on('error', () => reject('error reading file'));
@@ -69,11 +68,10 @@ function createBook(metadata) {
   }
 }
 
-function getImage(book, imgId) {
-  console.log(imgId);
+export function getImage(book, imgId) {
   return new Promise((resolve, reject) => {
     if(!imgId)
-      resolve(solvePath(__dirname, 'glass.png'));
+      resolve('./glass.png');
     book.getImage(imgId, function(err, img, mimeType) {
       if(!!err) reject(err);
       resolve(`data:${mimeType || 'image/jpeg'};base64,${img.toString('base64')}`);
@@ -81,9 +79,9 @@ function getImage(book, imgId) {
   });
 }
 
-function initEbook(bookPath) {
+function initEbook(bookPath, i) {
   return new Promise((resolve, reject) => {
-    read(bookPath).then(book => {
+    read(bookPath, i).then(book => {
         let metadata = createBook(book.metadata);
         metadata.url = bookPath;
         getImage(book, book.metadata.cover)
@@ -129,5 +127,51 @@ export function updateMatches(matches) {
   return {
     type: 'UPDATE_MATCH',
     data: matches
+  }
+}
+
+function getChapter(book, chapterId) {
+  return new Promise((resolve, reject) => {
+    book.getChapter(chapterId, function(err, text) {
+      if(err) reject(err);
+      resolve(text);
+    });
+  });
+}
+
+export function updateChapter(bookId, i, data) {
+  console.log(data);
+  return {
+    type: 'UPDATE_CHAPTER',
+    bookId,
+    i,
+    data
+  }
+}
+/*
+export function createReadable(url, bookIndex, total=2, init=0) {
+  return function(dispatch) {
+    dispatch(updateLoader(SHOW));
+    read(url).then(book => {
+      Promise.all(book.flow.slice(init, total).map(ch => getChapter(book, ch.id)))
+      .then(chapters => {
+        dispatch(setReadable(bookIndex, i));
+        chapters.forEach((text, i) => {
+          dispatch(updateChapter(bookIndex, init+i, {text}));
+        });
+        return dispatch(updateLoader(HIDE));
+      }).catch(e => { dispatch(showError('LOG', e)) });
+    }).catch(e => { dispatch(showError('LOG', e)) });
+  };
+}
+        */
+
+export function updateReadable(type, data=null, e=null) {
+  return function(dispatch) {
+    if(e) dispatch(showError('LOG', e));
+    else return dispatch({
+      type,
+      data
+    });
   }
 }

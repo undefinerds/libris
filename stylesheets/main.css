@@ -44,36 +44,42 @@ p {
   font-size: 1rem;
 }
 
-.readable > p::first-letter {
-  font-family: var(--decoFont);
-  font-size: 3rem;
+a {
+  text-decoration: none;
 }
 
-.fantasy > p:first-of-type::first-letter {
+.readable .chapter > p::first-letter {
+  font-family: var(--decoFont);
+  font-size: 3rem;
+  float: left;
+  text-decoration: none;
+}
+
+.fantasy .chapter > p::first-letter {
   font-family: var(--decoFantasyFont);
 }
 
-.tech > p:first-of-type::first-letter {
+.tech .chapter > p::first-letter {
   font-family: var(--decoTechFont);
 }
 
-.history > p:first-of-type::first-letter {
+.history .chapter > p::first-letter {
   font-family: var(--decoHistoryFont);
 }
 
-.science > p:first-of-type::first-letter {
+.science .chapter > p::first-letter {
   font-family: var(--decoScienceFont);
 }
 
-.art > p:first-of-type::first-letter {
+.art .chapter > p::first-letter {
   font-family: var(--decoArtFont);
 }
 
-.mistery > p:first-of-type::first-letter {
+.mistery .chapter > p::first-letter {
   font-family: var(--decoMisteryFont);
 }
 
-.romance > p:first-of-type::first-letter {
+.romance .chapter > p::first-letter {
   font-family: var(--decoRomanceFont);
 }
 
@@ -82,6 +88,27 @@ p {
   margin: 0px;
   background-color: var(--secondaryColor);
   color: var(--secondaryFontColor);
+}
+
+#search header {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  z-index: 2;
+  transform: translateX(-50%);
+  color: var(--secondaryFontColor);
+}
+
+#search.typed header, #search.typed header h1 {
+  display: none;
+}
+
+#search header h1 {
+  color: inherit;
+}
+
+#search header h1:first-of-type::first-letter {
+  font-family: 'Verve Alternate';
 }
 
 #searchbox {
@@ -120,11 +147,13 @@ p {
 #search.typed {
   height: 20vh;
 }
+
 #search.typed label {
   top: 10%;
   height: 2.5rem;
   width: auto;
 }
+
 #search.typed #searchbox {
   top: 10%;
   height: 2.5rem;

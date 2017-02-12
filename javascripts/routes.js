@@ -2,12 +2,10 @@ import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import Layout from './components/Layout';
 import Main from './components/Main';
-import SearchGrid from './components/SearchGrid';
-import Single from './components/Single';
 import Preview from './components/Preview';
 import Chapter from './components/Chapter';
-import ImageList from './components/ImageList';
 import Image from './components/Image';
+import NotFound from './components/NotFound';
 
 export default (
   //Searchroute
@@ -15,7 +13,10 @@ export default (
     <IndexRoute component={Main} />
   //Book route
     <Route path={':uri'} component={Preview} />
-    <Route path={'chapter/:id'} component={Chapter} />
-    <Route path={'image/:id'} component={Image} />
+    <Route path={':uri/read'} component={Chapter} />
+    <Route path={':uri/read/:id'} component={Chapter} />
+    <Route path={':uri/image'} component={Image} />
+    <Route path={':uri/image/:id'} component={Image} />
+    <Route path="*" component={NotFound} />
   </Route>
 );

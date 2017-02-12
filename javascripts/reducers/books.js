@@ -22,7 +22,7 @@ export default function books(state = [], action: Object) {
       return [
         ...state,
         ...action.data
-      ]
+      ];
     default:
       return state;
   }

@@ -1,4 +1,9 @@
 node_modules
 npm-debug.log
 yarn-error.log
-*/*/bundle.js
+*/**/bundle.js
+*/**/bundle.js.map
+public/*.ttf
+public/*.css
+public/*.otf
+Staging
