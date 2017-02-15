@@ -28,6 +28,14 @@ export default function readable(state={}, action) {
         location: 0,
         chapterText: null
       }
+    case 'START_TIMER':
+      return Object.assign({}, state, {
+        paused: false
+      });
+    case 'STOP_TIMER':
+      return Object.assign({}, state, {
+        paused: true
+      });
     default:
       return state;
   }

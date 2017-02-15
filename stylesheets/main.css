@@ -48,41 +48,6 @@ a {
   text-decoration: none;
 }
 
-.readable .chapter > p::first-letter {
-  font-family: var(--decoFont);
-  font-size: 3rem;
-  float: left;
-  text-decoration: none;
-}
-
-.fantasy .chapter > p::first-letter {
-  font-family: var(--decoFantasyFont);
-}
-
-.tech .chapter > p::first-letter {
-  font-family: var(--decoTechFont);
-}
-
-.history .chapter > p::first-letter {
-  font-family: var(--decoHistoryFont);
-}
-
-.science .chapter > p::first-letter {
-  font-family: var(--decoScienceFont);
-}
-
-.art .chapter > p::first-letter {
-  font-family: var(--decoArtFont);
-}
-
-.mistery .chapter > p::first-letter {
-  font-family: var(--decoMisteryFont);
-}
-
-.romance .chapter > p::first-letter {
-  font-family: var(--decoRomanceFont);
-}
-
 #search {
   height: 100vh;
   margin: 0px;
@@ -97,6 +62,23 @@ a {
   z-index: 2;
   transform: translateX(-50%);
   color: var(--secondaryFontColor);
+}
+
+#search nav {
+  position: absolute;
+  top: 1em;
+  right: 3%;
+}
+
+#search nav button {
+  background: none;
+  color: var(--secondaryFontColor);
+  margin: 5px;
+  border: none;
+}
+
+#search nav button:hover, #search nav button:focus {
+  color: var(--thirdColor);
 }
 
 #search.typed header, #search.typed header h1 {
@@ -158,4 +140,10 @@ a {
   top: 10%;
   height: 2.5rem;
   font-size: 1.25rem;
+}
+
+#searchBox label img:hover {
+  background-color: var(--thirdColor);
+  border-radius: 50%;
+  padding: 0.5rem;
 }

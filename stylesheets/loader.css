@@ -4,7 +4,6 @@
   0% {
     font-family: var(--serifFonts);
     text-transform: uppercase;
-    font-size: 3.4rem;
   }
 
   20% {
@@ -14,7 +13,6 @@
   40% {
     font-family: var(--decoRomanceFont);
     text-transform: capitalize;
-    font-size: 4rem;
   }
 
   60% {
@@ -91,6 +89,6 @@
     margin-left: 60px;
     transform: skewY(-20deg);
   }
-  .owl .eye .pupil:after {
+  .owl .turneyes .eye .pupil:after {
     animation: 2s ease-in-out turn-eyes infinite;
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import SearchGrid from './SearchGrid';
 import styles from '../../stylesheets/main.css';
-import { InstructionOwl } from './Owl';
+
 // Loader :)
 
 class Main extends Component {
@@ -22,16 +22,6 @@ class Main extends Component {
     e.preventDefault();
   }
 
-  welcome() {
-    return (
-      <InstructionOwl />
-    )
-  }
-
-  showWelcome() {
-    return ;
-  }
-
   showOptions() {
     return ;
   }
@@ -41,8 +31,8 @@ class Main extends Component {
       <div style={styles}>
         <div id="search" className={this.props.form.style}>
           <nav>
-            <button id="help" onClick={this.showWelcome.bind(this)}>Ayuda</button>
-            <button id="options" onClick={this.showOptions.bind(this)}>Opciones</button>
+            <button id="help" onClick={this.props.toggleWelcome}><i className="fa fa-question-circle-o fa-2x "></i></button>
+            <button id="options" onClick={this.showOptions.bind(this)}><i className="fa fa-cog fa-2x"></i></button>
           </nav>
           <header><h1>Libris</h1></header>
           <form id="searchBox" name="searchBox" onSubmit={this.handleSubmit}>
@@ -57,10 +47,6 @@ class Main extends Component {
       </div>
     )
   }
-}
-
-Main.defaultProps = {
-  welcome: false
 }
 
 export default Main;

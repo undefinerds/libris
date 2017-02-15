@@ -14,6 +14,10 @@ export default function loader(state={}, action) {
       return Object.assign({}, state, {
         error: action.error
       });
+    case 'TOGGLE_WELCOME':
+      return Object.assign({}, state, {
+        welcome: !state.welcome
+      });
     default:
       return state;
   }

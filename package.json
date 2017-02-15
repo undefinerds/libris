@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run build && npm run electron",
     "electron": "./node_modules/electron-prebuilt/dist/electron .",
+    "devtron": "./node_modules/electron-prebuilt/dist/electron main.development.js",
     "watch": "./node_modules/.bin/webpack-dev-server --config webpack.base.js",
     "electron-rebuild": "./node_modules/.bin/electron-rebuild",
     "build": "./node_modules/.bin/webpack --config webpack.base.js"
@@ -63,7 +64,8 @@
     "react-router": "^3.0.2",
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "sqlite3": "^3.1.8"
   },
   "author": "Jhinel Arcaya, Joseph Perez, Daviannys Miquilena, Alcides Pacheco, Yandra Yepez",
   "license": "MIT",

@@ -1,0 +1,131 @@
+@import "colors.css";
+
+#ReadableBar {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  z-index: 100;
+  height: 10vh;
+}
+
+.readable aside:first-of-type {
+  position: fixed;
+  top: 0%;
+  left: -100%;
+  height: 100vh;
+  width: 16vw;
+  background-color: var(--mainBackgroundColor);
+}
+
+.readable aside:first-of-type button {
+  background: none;
+  border: none;
+}
+
+.readable aside:first-of-type button:hover, .readable aside:first-of-type button:focus {
+  background-color: var(--secondaryColorDarker);
+}
+
+.readable aside:first-of-type .show-aside {
+  display: block;
+}
+
+.readable aside:first-of-type .hidden {
+  display: none;
+}
+
+#ReadableBar button {
+  background: none;
+  border: none;
+}
+
+#ReadableBar .light, #ReadableBar .dark {
+  position: absolute;
+  left: 0px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  color: inherit;
+}
+
+#ReadableBar .dark {
+  position: absolute;
+  align-items: stretch;
+  top: 0px;
+  height: 40%;
+  background-color: #222;
+  color: var(--secondaryFontColor);
+}
+
+#ReadableBar .dark button {
+  color: var(--secondaryFontColor);
+}
+
+#ReadableBar .light {
+  top: 50%;
+  color: #555;
+  height: 60%;
+  padding: 5px;
+}
+
+#ReadableBar .title {
+  align-self: center;
+  flex-grow: 2;
+  flex-basis: 50%;
+}
+
+.readable #navigation {
+  position: fixed;
+  width: 100vh;
+  z-index: 500;
+  bottom: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.readable #navigation button {
+  background: none;
+  border: none;
+  color: #555;
+}
+
+
+/*
+.readable .chapter > p::first-letter {
+  font-family: var(--decoFont);
+  font-size: 3rem;
+  float: left;
+  text-decoration: none;
+}
+
+.fantasy .chapter > p::first-letter {
+  font-family: var(--decoFantasyFont);
+}
+
+.tech .chapter > p::first-letter {
+  font-family: var(--decoTechFont);
+}
+
+.history .chapter > p::first-letter {
+  font-family: var(--decoHistoryFont);
+}
+
+.science .chapter > p::first-letter {
+  font-family: var(--decoScienceFont);
+}
+
+.art .chapter > p::first-letter {
+  font-family: var(--decoArtFont);
+}
+
+.mistery .chapter > p::first-letter {
+  font-family: var(--decoMisteryFont);
+}
+
+.romance .chapter > p::first-letter {
+  font-family: var(--decoRomanceFont);
+}*/

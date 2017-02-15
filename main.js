@@ -1,11 +1,4 @@
-var { app, BrowserWindow, crashReporter } = require('electron');
-var installExtensions = require('./devTools.config');
-crashReporter.start({
-  productName: 'Libris',
-  companyName: 'undefinerds',
-  submitURL: 'http://localhost:8080',
-  uploadToServer: true
-});
+var { app, BrowserWindow } = require('electron');
 
 app.on('window-all-closed', function() {
   if (process.platform != 'darwin') {
@@ -20,9 +13,6 @@ app.on('ready', function() {
     mainWindow.show();
     mainWindow.focus();
   });
-  
-    installExtensions();
-    mainWindow.openDevTools();
 
   mainWindow.on('closed', function() {
     mainWindow = null;

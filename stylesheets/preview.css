@@ -8,11 +8,25 @@
   position: relative;
   top: 0;
   left: 0;
-  height: 10vh;
+  height: 3rem;
   width: 100%;
   background-color: var(--mainBackgroundColor);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
 }
 
+#AppBar .title {
+  align-self: center;
+  flex-grow: 2;
+  flex-basis: 50%;
+}
+
+#AppBar button {
+  min-height: 1.5rem;
+  color: #555;
+}
 
 .preview button {
   display: block;
@@ -24,6 +38,30 @@
 
 .preview button:hover, .preview button:focus {
   background-color: var(--secondaryColorDarker);
+}
+
+.preview button.no-btn {
+  color: inherit;
+  background: none;
+  border: none;
+  color: var(--mainFontColor);
+}
+
+.preview button.line {
+  width: 5rem;
+  font-family: sans;
+  text-transform: uppercase;
+  background-color: #FEFEFE;
+  border-radius: 10px;
+  border: 5px solid var(--secondaryColor);
+  color: #555;
+  word-spacing: 1px;
+  font-weight: 600;
+}
+
+.preview button.line:hover, .preview button.line:focus {
+  background-color: var(--secondaryColor);
+  color: #FEFEFE;
 }
 
 .preview header, .preview h1 {

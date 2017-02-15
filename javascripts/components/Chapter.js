@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import { read, getImage } from '../actions';
 import {Parser, ProcessNodeDefinitions} from 'html-to-react';
 import {ReadingOwl} from './Owl';
 import run from '../../lib/run';
 import Promise from 'promise';
+import style from '../../stylesheets/readable.css';
 
 const HTR = new Parser();
 
@@ -13,19 +14,35 @@ class Chapter extends Component {
   constructor(props) {
     super(props);
     this.book = null;
+    this.timer = null;
   }
 
   componentWillMount() {
     const bookId = Number(this.props.params.uri), that = this;
     read(this.props.books[bookId].url, bookId).then(book => {
       that.book = book;
-      const initLocation = (that.props.params && that.props.params.id) || that.props.readable.location;
+      //No importa si el numero del parametro es 0 (que equivale a false) igual lo tomara por readable
+      const initLocation = (that.props.params && Number(that.props.params.id)) || that.props.readable.location;
       if(bookId !== that.props.readable.bookId) {
         that.props.updateReadable('CLEAN_READABLE');
       }
       that.props.updateReadable('UPDATE_READABLE', { loaded: true, bookId, location: initLocation });
       that.setChapter.call(that);
     }).catch(e => this.props.updateReadable('READABLE_REPORT_ERROR', null, e));
+  }
+
+  componentDidMount() {
+    this.setTimer.call(this);
+  }
+
+  setTimer() {
+    this.props.startReading();
+    this.timer = setTimeout(this.pauseReading.bind(this), 7200000);
+  }
+
+  pauseReading() {
+    this.props.stopReading();
+    setTimeout(setTimer.bind(this), 30000);
   }
 
   setChapter() {
@@ -39,9 +56,7 @@ class Chapter extends Component {
           return Promise.resolve(chunk);
         }
         const end = chunk.indexOf('"');
-        console.log(chunk.slice(0, end));
         const imageId = chunk.slice(0, end).split('/')[0];
-        console.log(imageId);
         return new Promise((resolve, reject) => {
           getImage(that.book, imageId)
           .then(img => resolve(img + chunk.slice(end)), reject);
@@ -50,7 +65,16 @@ class Chapter extends Component {
       .then(texts => {
         const chapterText = '<div class="chapter">' + texts.join('img src="') + '</div>';
         that.props.updateReadable('UPDATE_READABLE', { loaded: true, chapterText });
-        console.log(chapterText);
+        console.log(that.book);
+
+        const style = that.book.manifest[Object.keys(that.book.manifest).filter(ex => /(style|css)/i.test(ex)).pop()];
+        if(style) {
+          console.log(style);
+          that.book.getFile(style.id, function(err, data, mimeType) {
+            data = data.toString('utf8').replace(/(html|body)/i, '#container');
+            that.props.updateReadable('UPDATE_READABLE', { css: data });
+          });
+        }
       })
       .catch(e => that.props.updateReadable('READABLE_REPORT_ERROR', null, e));
     });
@@ -97,21 +121,71 @@ class Chapter extends Component {
     return HTR.parseWithInstructions(data, isValidNode, processingInstructions);
   }
 
+  changeLocation(location) {
+    this.props.updateReadable('UPDATE_READABLE', { location });
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+    delete this.timer;
+  }
+
+  displayPauseMessage(message) {
+    return (
+      <div style={{position: 'fixed', zIndex: 1000, backgroundColor: 'rgba(0, 0, 0, 0.4)', top: '0%', left: '0%'}}>
+        <article style={{ position: 'absolute', color: '#FFF', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
+          <i className="fa fa-pause fa-5x"></i>
+          <p>{message}</p>
+        </article>
+      </div>
+    )
+  }
+
+  toggleAside() {
+    this.props.updateReadable('UPDATE_READABLE', { toggleTOC: !this.props.toggleTOC });
+  }
+
+  bookmarkText() {
+    const text = window.getSelection().toString();
+    console.log(text);
+  }
+
   render() {
     const uri = Number(this.props.params.uri);
+    const { toggleTOC, css } = this.props.readable;
     return (
-        <div className={`readable ${this.book.metadata && this.book.metadata.subject}`}>
-          <Link to='/'>Volver al Inicio</Link>
-          <div style={{position: 'absolute', height: '80%', top: '10%', left: '0'}}>
+        <div className="readable">
+          <nav id="ReadableBar">
+          <div className="dark">
+            <button onClick={hashHistory.goBack}><i className="fa fa-times"></i></button>
+            <span>{(this.book && this.book.flow && location !== 0) ? (Number(location) * 100 / Number(this.book.flow.length)) + '%' : '0%' }</span>
+            <button onClick={this.bookmarkText}><i className="fa fa-bookmark"></i></button>
+          </div>
+          <div className="light">
+            <button onClick={this.toggleAside.bind(this)}><i className="fa fa-bars fa-2x"></i></button>
+            <header className="title">{this.book && this.book.metadata && this.book.title}</header>
+            <i className="fa fa-smile-o fa-2x"></i>
+          </div>
+          </nav>
+          <div className={`${this.book && this.book.metadata && this.book.metadata.subject}`}>
             <section>
-            <nav>
-              <button onClick={this.prevChapter.bind(this)}>Back</button>
-              <button onClick={this.nextChapter.bind(this)}>Next</button>
+              <aside className={(toggleTOC) ? 'show-aside' : 'hidden'}>
+                <ol>
+                {this.book && this.book.flow && this.book.flow.map((ch, i) => (<li key={i}><button onClick={this.changeLocation.bind(this, i)}>{ch.title || ch.id}</button></li>))}
+                </ol>
+              </aside>
+            <nav id="navigation">
+              <button onClick={this.prevChapter.bind(this)}><i className="fa fa-chevron-left fa-2x"></i></button>
+              <button onClick={this.nextChapter.bind(this)}><i className="fa fa-chevron-right fa-2x"></i></button>
             </nav>
+            <article id="container" style={ { maxWidth: '90%', margin: 'auto' } }>
+            <style>{css}</style>
             {this.props.readable.loaded ?
               !!this.props.readable.chapterText && this.htmlParser.call(this, this.props.readable.chapterText) : <ReadingOwl bookName='B' />}
+            </article>
             </section>
           </div>
+          {this.props.readable && this.props.readable.paused && this.displayPauseMessage('¡A descansar!')}
         </div>
     )
   }
@@ -121,7 +195,8 @@ Chapter.defaultProps = {
   readable: {
     location: 0,
     loaded: false,
-    chapterText: null
+    chapterText: null,
+    toggleTOC: false
   }
 }
 

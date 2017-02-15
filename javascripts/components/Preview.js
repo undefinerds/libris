@@ -13,28 +13,44 @@ class Paragraph extends Component {
 
 class Preview extends Component {
 
+  spanish(word) {
+    word = word.toLowerCase();
+    switch(word) {
+      case 'author':
+        return 'autor';
+      case 'subject':
+        return 'género';
+      case 'pubDate':
+        return 'fecha de publicación';
+      case 'description':
+        return 'descripción';
+      default:
+        return word;
+    }
+  }
+
   render() {
     const i = Number(this.props.params.uri);
     const book = this.props.books[i];
     return (
       <div style={styles} className="preview">
       <nav id="AppBar">
-        <Link to="/">Atr&aacute;s</Link>
-        <span>{book.title}</span>
-        <Link to={`/${i}/read`}><button>Leer</button></Link>
+        <Link to="/"><button className="no-btn"><i className="fa fa-chevron-left fa-2x"></i></button></Link>
+        <span className="title">{book && book.title}</span>
+        <Link to={`/${i}/read`}><button className="line">Leer</button></Link>
       </nav>
       <header>
-        <h1>{book.title}</h1>
+        <h1>{book && book.title}</h1>
       </header>
       <section>
         <article>
           <figure className="left">
-            <img src={book.cover} alt={`Cubierta de ${book.title}`}/>
+            <img src={book && book.cover} alt={`Cubierta de ${book.title}`}/>
             <figcaption>
               <Link to={`/${i}/read`}><button>Leer</button></Link>
             </figcaption>
           </figure>
-          {[...Object.keys(book)].filter(k => !(['title', 'cover', 'chapters'].includes(k))).map((key, i) => <Paragraph key={i} subtitle={key} paragraph={book[key]} />)}
+          {[...Object.keys(book)].filter(k => !(['title', 'cover', 'chapters'].includes(k))).map((key, i) => <Paragraph key={i} subtitle={this.spanish(key)} paragraph={book[key]} />)}
         </article>
         <article className="clearfix">
           <Link to={`/${i}/read`}><button>Leer</button></Link>
@@ -43,7 +59,7 @@ class Preview extends Component {
       <article>
         <h2>Contenido</h2>
         <ol>
-          {book.chapters.map((ch, j) => <li key={j}><Link to={`/${i}/read/`}><Paragraph subtitle={!!(ch.title) ? ch.title : ch.id} paragraph=' ' /></Link></li>)}
+          {book.chapters && book.chapters.map((ch, j) => <li key={j}><Link to={`/${i}/read/${j}`}><Paragraph subtitle={!!(ch.title) ? ch.title : ch.id} paragraph=' ' /></Link></li>)}
         </ol>
       </article>
       </div>

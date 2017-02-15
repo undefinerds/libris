@@ -1,5 +1,5 @@
 var installExtension = require('electron-devtools-installer');
-const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
+const extensions = ['REACT_DEVELOPER_TOOLS'];
 
 
 module.exports = function () {

@@ -6,4 +6,6 @@ yarn-error.log
 public/*.ttf
 public/*.css
 public/*.otf
+public/*.eot
+public/*.svg
 Staging

@@ -4,7 +4,7 @@ import style from '../../stylesheets/owl.css';
 export default class Owl extends Component {
   render() {
     return (
-      <div className={`owl ${this.props.className}`}>
+      <div className={`owl ${this.props.className}`} style={this.props.styles}>
         <div className="ear ear-left"></div>
         <div className="ear ear-right"></div>
         <div className="eye eye-left">
@@ -40,14 +40,17 @@ export class ReadingOwl extends Component {
 
 export class InstructionOwl extends Component {
   render() {
-    const { message, i } = this.props;
+    const { message, styles, leftHand, rightHand } = this.props;
     return (
-        <Owl className={'teaching'}>
-        <div className="message">
-        {message}
-        <button onClick={this.props.handleMessage}>Siguiente</button>
-        </div>
+      <div onClick={this.props.handleMessage.bind(this)}>
+        <Owl className={`teaching ${this.props.className}`} styles={styles}>
+          <div className="arm arm-left" style={(leftHand || leftHand === 0) ? {transform: 'rotate('+leftHand +'deg)'} : {}}></div>
+          <div className="arm arm-right" style={(rightHand || rightHand === 0) ? {transform: `rotate(${rightHand}deg)`} : {}}></div>
         </Owl>
+        <div id="message">
+            {message}
+        </div>
+      </div>
     )
   }
 }

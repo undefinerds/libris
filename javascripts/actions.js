@@ -1,4 +1,4 @@
-import { SHOW, HIDE, ADD_BOOK, EDIT_BOOK, REMOVE_BOOK } from './consts';
+import { SHOW, HIDE, ADD_BOOK, EDIT_BOOK, REMOVE_BOOK, instructions } from './consts';
 import initializeURL from '../lib/init';
 const Epub = require('epub');
 import config from './config';
@@ -148,23 +148,7 @@ export function updateChapter(bookId, i, data) {
     data
   }
 }
-/*
-export function createReadable(url, bookIndex, total=2, init=0) {
-  return function(dispatch) {
-    dispatch(updateLoader(SHOW));
-    read(url).then(book => {
-      Promise.all(book.flow.slice(init, total).map(ch => getChapter(book, ch.id)))
-      .then(chapters => {
-        dispatch(setReadable(bookIndex, i));
-        chapters.forEach((text, i) => {
-          dispatch(updateChapter(bookIndex, init+i, {text}));
-        });
-        return dispatch(updateLoader(HIDE));
-      }).catch(e => { dispatch(showError('LOG', e)) });
-    }).catch(e => { dispatch(showError('LOG', e)) });
-  };
-}
-        */
+
 
 export function updateReadable(type, data=null, e=null) {
   return function(dispatch) {
@@ -173,5 +157,38 @@ export function updateReadable(type, data=null, e=null) {
       type,
       data
     });
+  }
+}
+
+export function startReading() {
+  return function(dispatch) {
+    return dispatch({
+      type: 'START_TIMER'
+    });
+  }
+}
+
+export function stopReading() {
+  return function(dispatch) {
+    return dispatch({
+      type: 'STOP_TIMER'
+    });
+  }
+}
+
+export function toggleWelcome() {
+  return function(dispatch) {
+    return dispatch({
+      type: 'TOGGLE_WELCOME'
+    })
+  }
+}
+
+export function updateMessage(i) {
+  return function(dispatch) {
+    return dispatch({
+      type: 'UPDATE_MESSAGE',
+      message: instructions[i]
+    })
   }
 }
