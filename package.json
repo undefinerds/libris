@@ -9,7 +9,9 @@
     "devtron": "./node_modules/electron-prebuilt/dist/electron main.development.js",
     "watch": "./node_modules/.bin/webpack-dev-server --config webpack.base.js",
     "electron-rebuild": "./node_modules/.bin/electron-rebuild",
-    "build": "./node_modules/.bin/webpack --config webpack.base.js"
+    "build": "./node_modules/.bin/webpack --config webpack.base.js",
+    "pack": "./node_modules/.bin/build --publish never",
+    "pack:linux": "./node_modules/.bin/build --linux"
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -19,15 +21,17 @@
     "babel-plugin-react-transform": "^2.0.2",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "babel-plugin-transform-react-display-name": "^6.22.0",
-    "babel-polyfill": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
-    "css-loader": "^0.15.1",
+    "css-loader": "^0.26.1",
     "cssrecipes-grid": "^1.0.0",
+    "electron-builder": "^13.9.0",
     "electron-devtools-installer": "^2.1.0",
     "electron-packager": "^8.5.1",
     "electron-rebuild": "^1.5.7",
+    "electron-prebuilt": "^1.4.13",
+    "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.10.0",
     "node-libs-browser": "^0.5.2",
     "postcss": "^5.2.11",
@@ -49,12 +53,10 @@
     "webpack-target-electron-renderer": "^0.4.0"
   },
   "dependencies": {
+    "babel-polyfill": "^6.22.0",
     "co": "^4.6.0",
-    "electron-prebuilt": "^1.4.13",
     "epub": "^0.1.6",
     "html-to-react": "^1.2.3",
-    "mongodb": "^2.2.22",
-    "mongorito": "^2.2.0",
     "promise": "^7.1.1",
     "react": "^15.4.2",
     "react-css-modules": "^4.1.0",
@@ -67,10 +69,34 @@
     "redux-thunk": "^2.2.0",
     "sqlite3": "^3.1.8"
   },
-  "author": "Jhinel Arcaya, Joseph Perez, Daviannys Miquilena, Alcides Pacheco, Yandra Yepez",
+  "author": {
+    "name": "Jhinel Arcaya, Joseph Perez, Daviannys Miquilena, Alcides Pacheco, Yandra Yepez",
+    "email": "ajhinel@uptag.edu.ve",
+    "url": "https://github.com/undefinderds"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/undefinerds/libris/issues"
+  },
+  "build": {
+    "productName": "Libris",
+    "appId": "org.undefinerds.libris",
+    "category": "public.education.books",
+    "files": [
+      "dist/",
+      "public/",
+      "node_modules/",
+      "index.html",
+      "main.js",
+      "bundle.js",
+      "package.json"
+    ],
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ]
+    }
   },
   "homepage": "https://github.com/undefinerds/libris#readme",
   "devEngines": {
