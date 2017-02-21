@@ -18,6 +18,11 @@ export default function loader(state={}, action) {
       return Object.assign({}, state, {
         welcome: !state.welcome
       });
+    case 'UPDATE_MESSAGE':
+      return Object.assign({}, state, {
+        i: action.i,
+        message: action.message
+      });
     default:
       return state;
   }

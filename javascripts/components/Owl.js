@@ -24,9 +24,9 @@ export default class Owl extends Component {
 export class ReadingOwl extends Component {
 
   render() {
-    const bookName= !!(this.props.bookName) ? this.props.bookName : 'Charlie y la Fábrica de Chocolates';
+    const bookName= !!(this.props.bookName) ? this.props.bookName : 'C';
     return (
-        <Owl className={'reading'}>
+        <Owl className={'reading ' + this.props.className}>
           <div className="book">
           <div className="left"></div>
           <div className="right history">

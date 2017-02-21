@@ -43,7 +43,6 @@ class Main extends Component {
           </form>
         </div>
         <SearchGrid {...this.props} indexGrid={this.props.form.matches} />
-        {this.props.welcome && this.welcome()}
       </div>
     )
   }

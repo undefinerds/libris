@@ -1,4 +1,4 @@
-import { SHOW, HIDE, ADD_BOOK, EDIT_BOOK, REMOVE_BOOK, instructions } from './consts';
+import { SHOW, HIDE, ADD_BOOK, EDIT_BOOK, REMOVE_BOOK, INSTRUCTIONS } from './consts';
 import initializeURL from '../lib/init';
 const Epub = require('epub');
 import config from './config';
@@ -102,7 +102,9 @@ export function initializeStore() {
       Promise.all(bookPaths.map(initEbook)).then(books => {
         dispatch(updateStore('NEW', books));
         dispatch(updateForm('', books.map((_, i) => i)));
-        return dispatch(updateLoader(HIDE));
+        dispatch(updateLoader(HIDE));
+        dispatch(changeWelcomeMessage(0));
+        return dispatch(showWelcome());
       }).catch(e => { dispatch(showError('LOG', e)) });
     }).catch(e => { dispatch(showError('LOG', e)) });
   };
@@ -178,17 +180,26 @@ export function stopReading() {
 
 export function toggleWelcome() {
   return function(dispatch) {
-    return dispatch({
-      type: 'TOGGLE_WELCOME'
-    })
+    return dispatch(showWelcome());
+  }
+}
+
+export function showWelcome() {
+  return {
+    type: 'TOGGLE_WELCOME'
   }
 }
 
 export function updateMessage(i) {
   return function(dispatch) {
-    return dispatch({
-      type: 'UPDATE_MESSAGE',
-      message: instructions[i]
-    })
+    return dispatch(changeWelcomeMessage(i));
+  }
+}
+
+export function changeWelcomeMessage(i=0) {
+  return {
+    type: 'UPDATE_MESSAGE',
+    i,
+    message: INSTRUCTIONS[i]
   }
 }

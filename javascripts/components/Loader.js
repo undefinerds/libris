@@ -8,7 +8,7 @@ class Loader extends Component {
       <div style={styles}>
         <article id="loaderContainer" className={this.props.loader.show}>
           <div id="loader">
-            <ReadingOwl {...this.props} bookName={this.props.letter || 'H'} />
+            <ReadingOwl className="turn-eyes" bookName={this.props.letter || 'H'} />
           </div>
           <p>Cargando</p>
         </article>

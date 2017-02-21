@@ -89,6 +89,6 @@
     margin-left: 60px;
     transform: skewY(-20deg);
   }
-  .owl .turneyes .eye .pupil:after {
+  .owl .turn-eyes .eye .pupil:after {
     animation: 2s ease-in-out turn-eyes infinite;
   }

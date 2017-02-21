@@ -147,10 +147,13 @@
     position: absolute;
     top: 50%;
     left: 5%;
-    color: #FEFEFE;
     width: 18rem;
-    font-size: 1.2rem;
     transform: translateY(-50%);
+  }
+
+  #message, #message p {
+    font-size: 1.2rem;
+    color: #FEFEFE;
   }
 
   #message::before, #message::after {
@@ -162,12 +165,12 @@
   }
 
   #message::before {
-    top: -100%;
+    top: -20%;
     border-radius: 5px 5px 0px 0px;
   }
 
   #message::after {
-    bottom: -100%;
+    bottom: -20%;
     left: 0%;
     border-radius: 0px 0px 5px 5px;
   }

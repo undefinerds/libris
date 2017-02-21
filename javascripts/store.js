@@ -16,8 +16,7 @@ export function configureStore(initialState={}) {
 
 const store = configureStore({
   loader: {
-    show: 'visible',
-    i: 0
+    show: 'visible'
   },
   books: [],
   form: {
