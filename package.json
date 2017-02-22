@@ -55,11 +55,11 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.22.0",
-    "caminte": "^0.3.6",
     "co": "^4.6.0",
+    "electron-storage": "^1.0.7",
     "epub": "^0.1.6",
     "html-to-react": "^1.2.3",
-    "mongorito": "^2.2.0",
+    "lowdb": "^0.15.5",
     "promise": "^7.1.1",
     "react": "^15.4.2",
     "react-css-modules": "^4.1.0",
@@ -69,8 +69,7 @@
     "react-router": "^3.0.2",
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0",
-    "sqlite3": "^3.1.8"
+    "redux-thunk": "^2.2.0"
   },
   "author": {
     "name": "Jhinel Arcaya, Joseph Perez, Daviannys Miquilena, Alcides Pacheco, Yandra Yepez",

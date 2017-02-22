@@ -40,14 +40,14 @@ export class ReadingOwl extends Component {
 
 export class InstructionOwl extends Component {
   render() {
-    const { message, styles, leftHand, rightHand } = this.props;
+    const { message, leftHand, rightHand, x, y } = this.props;
     return (
       <div onClick={this.props.handleMessage.bind(this)}>
-        <Owl className={`teaching ${this.props.className}`} styles={styles}>
-          <div className="arm arm-left" style={(leftHand || leftHand === 0) ? {transform: 'rotate('+leftHand +'deg)'} : {}}></div>
-          <div className="arm arm-right" style={(rightHand || rightHand === 0) ? {transform: `rotate(${rightHand}deg)`} : {}}></div>
+        <Owl className={`teaching ${this.props.className}`} styles={{top: y, left: x}}>
+          <div className="arm arm-left" style={(leftHand || leftHand === 0) ? {transform: `rotate(${leftHand}deg)`} : {}}></div>
+          <div className="arm arm-right" style={(rightHand || rightHand === 0) ? {transform: `rotate(-${rightHand}deg)`} : {}}></div>
         </Owl>
-        <div id="message">
+        <div id="message" className={(this.props.messageBottom) ? 'bottom' : 'top' }>
             {message}
         </div>
       </div>

@@ -1,8 +1,9 @@
 import { SHOW, HIDE, ADD_BOOK, EDIT_BOOK, REMOVE_BOOK, INSTRUCTIONS } from './consts';
 import initializeURL from '../lib/init';
 const Epub = require('epub');
-import config from './config';
 import Promise from 'promise';
+import config from './config';
+import DB from '../lib/database';
 
 export function addBook(name, author, data) {
   return {
@@ -79,6 +80,7 @@ export function getImage(book, imgId) {
   });
 }
 
+/*
 function initEbook(bookPath, i) {
   return new Promise((resolve, reject) => {
     read(bookPath, i).then(book => {
@@ -92,8 +94,41 @@ function initEbook(bookPath, i) {
         }).catch(reject);
     }).catch(reject);
   });
+}*/
+
+function initEbook(book, i) {
+  return new Promise((resolve, reject) => {
+        let metadata = createBook(book);
+        getImage(book, metadata.cover)
+        .then(img => {
+          metadata.cover = img;
+          metadata.chapters = book.flow;
+          resolve(metadata);
+        }).catch(reject);
+    });
 }
 
+export function initializeStore() {
+  return function(dispatch) {
+    const dir = (config.directory === 'default') ? process.env.HOME : config.directory;
+    dispatch(updateLoader(SHOW));
+
+    initializeURL(dir, config.extensions).then(books => {
+
+      Promise.all(books.map(initEbook)).then((reduxedBooks) => {
+
+        dispatch(updateStore('NEW', books));
+        dispatch(updateForm('', books.map((_, i) => i)));
+        dispatch(updateLoader(HIDE));
+        dispatch(changeWelcomeMessage(0));
+        return dispatch(showWelcome());
+
+      }).catch(e => { dispatch(showError('LOG', e)) });;
+    }).catch(e => { dispatch(showError('LOG', e)) });;
+  }
+}
+
+/*
 export function initializeStore() {
   return function (dispatch) {
     const dir = (config.directory === 'default') ? process.env.HOME : config.directory;
@@ -109,7 +144,7 @@ export function initializeStore() {
     }).catch(e => { dispatch(showError('LOG', e)) });
   };
 }
-
+*/
 
 export function setFormValues(values) {
   return {
@@ -200,6 +235,13 @@ export function changeWelcomeMessage(i=0) {
   return {
     type: 'UPDATE_MESSAGE',
     i,
-    message: INSTRUCTIONS[i]
+    data: INSTRUCTIONS[i]
+  }
+}
+
+export function removeInstrucions(key) {
+  return {
+    type: 'REMOVE_INSTRUCTION',
+    key
   }
 }

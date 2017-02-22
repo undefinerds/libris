@@ -21,7 +21,11 @@ export default function loader(state={}, action) {
     case 'UPDATE_MESSAGE':
       return Object.assign({}, state, {
         i: action.i,
-        message: action.message
+        ...action.data
+      });
+    case 'REMOVE_INSTRUCTION':
+      return Object.assign({}, state, {
+        [action.key]: undefined
       });
     default:
       return state;

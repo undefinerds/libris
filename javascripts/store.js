@@ -3,10 +3,8 @@ import thunkMiddleware from 'redux-thunk';
 import { createMemoryHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import rootReducer from './reducers';
-const { connect } = require('../lib/database');
 
 export function configureStore(initialState={}) {
-  connect();
   return createStore(rootReducer, initialState, compose(applyMiddleware(thunkMiddleware),
     window.devToolsExtension ?
     window.devToolsExtension() :

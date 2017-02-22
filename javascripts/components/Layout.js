@@ -3,8 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions';
 import Loader from './Loader';
+import { hashHistory } from 'react-router';
 import { InstructionOwl } from './Owl';
 import { INSTRUCTIONS } from '../consts';
+
 //Passing the state through components via props
 function mapStateToProps(state) {
   return {
@@ -29,6 +31,7 @@ class Layout extends Component {
     super(props);
     this.welcome = this.welcome.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
+    this.changeDir = this.changeDir.bind(this);
   }
 
   componentWillMount() {
@@ -37,9 +40,14 @@ class Layout extends Component {
     return 0;
   }
 
+  componentDidUpdate(prevProps) {
+    if(this.props.loader.welcome && this.props.loader.push && this.props.loader.push !== prevProps.loader.push) {
+      this.changeDir(this.props.loader.push);
+    }
+  }
+
   handleMessage() {
     if(this.props.loader.i === (INSTRUCTIONS.length - 1)) {
-      console.log('what happened here?');
       this.props.updateMessage(0);
       this.props.toggleWelcome();
     } else {
@@ -51,7 +59,7 @@ class Layout extends Component {
     return (
       <div style={{ position: 'fixed', top: '0', left: '0', width: '100vw', height: '100vh', overflow: 'hidden', backgroundColor: 'rgba(10, 10, 10, 0.6)', zIndex: '500'}}>
         <button onClick={this.props.toggleWelcome} style={{ position: 'absolute', bottom: '5%', left: '50%', width: '110px', marginLeft: '-55px', background: 'none', border: 'none', textTransform: 'uppercase', color: '#FEFEFE'}}>Ignorar</button>
-        <InstructionOwl className="open-eye"
+        <InstructionOwl className="open-eye" {...this.props.loader}
           message={this.props.loader.message}
           x={this.props.loader.x}
           y={this.props.loader.y}
@@ -62,6 +70,13 @@ class Layout extends Component {
     )
   }
 
+  changeDir(push) {
+    console.log('funciono con ');
+    console.log(push);
+    if(push) {
+      this.context.router.push(push);
+    }
+  }
 
   render() {
     return (
