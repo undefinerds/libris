@@ -2,8 +2,9 @@ import { SHOW, HIDE, ADD_BOOK, EDIT_BOOK, REMOVE_BOOK, INSTRUCTIONS } from './co
 import initializeURL from '../lib/init';
 const Epub = require('epub');
 import Promise from 'promise';
-import config from './config';
 import DB from '../lib/database';
+
+const Config = DB('config');
 
 export function addBook(name, author, data) {
   return {
@@ -80,21 +81,6 @@ export function getImage(book, imgId) {
   });
 }
 
-/*
-function initEbook(bookPath, i) {
-  return new Promise((resolve, reject) => {
-    read(bookPath, i).then(book => {
-        let metadata = createBook(book.metadata);
-        metadata.url = bookPath;
-        getImage(book, book.metadata.cover)
-        .then(img => {
-          metadata.cover = img;
-          metadata.chapters = book.flow;
-          resolve(metadata);
-        }).catch(reject);
-    }).catch(reject);
-  });
-}*/
 
 function initEbook(book, i) {
   return new Promise((resolve, reject) => {
@@ -110,41 +96,23 @@ function initEbook(book, i) {
 
 export function initializeStore() {
   return function(dispatch) {
+    Config.get().then(config => {
     const dir = (config.directory === 'default') ? process.env.HOME : config.directory;
     dispatch(updateLoader(SHOW));
 
     initializeURL(dir, config.extensions).then(books => {
-
-      Promise.all(books.map(initEbook)).then((reduxedBooks) => {
-
         dispatch(updateStore('NEW', books));
         dispatch(updateForm('', books.map((_, i) => i)));
         dispatch(updateLoader(HIDE));
         dispatch(changeWelcomeMessage(0));
         return dispatch(showWelcome());
 
-      }).catch(e => { dispatch(showError('LOG', e)) });;
-    }).catch(e => { dispatch(showError('LOG', e)) });;
+    }).catch(e => { dispatch(showError('LOG', e)) });
+  });
   }
 }
 
-/*
-export function initializeStore() {
-  return function (dispatch) {
-    const dir = (config.directory === 'default') ? process.env.HOME : config.directory;
-    dispatch(updateLoader(SHOW));
-    initializeURL(dir, config.extensions).then(bookPaths => {
-      Promise.all(bookPaths.map(initEbook)).then(books => {
-        dispatch(updateStore('NEW', books));
-        dispatch(updateForm('', books.map((_, i) => i)));
-        dispatch(updateLoader(HIDE));
-        dispatch(changeWelcomeMessage(0));
-        return dispatch(showWelcome());
-      }).catch(e => { dispatch(showError('LOG', e)) });
-    }).catch(e => { dispatch(showError('LOG', e)) });
-  };
-}
-*/
+
 
 export function setFormValues(values) {
   return {

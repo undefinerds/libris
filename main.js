@@ -9,11 +9,13 @@ app.on('window-all-closed', function() {
 });
 
 if(!fs.existsSync(path.resolve(app.getPath('userData'), 'Book.json'))) {
-  fs.closeSync(fs.openSync(path.resolve(app.getPath('userData'), 'Book.json')), 'w'));
+  fs.writeFileSync(path.resolve(app.getPath('userData'), 'Book.json'),
+    '[]');
 }
 
 if(!fs.existsSync(path.resolve(app.getPath('userData'), 'config.json'))) {
-  fs.closeSync(fs.openSync(path.resolve(app.getPath('userData'), 'cook.json')), 'w'));
+  fs.writeFileSync(path.resolve(app.getPath('userData'), 'config.json'),
+    fs.readFileSync(path.join(__dirname, 'json', 'config.json')));
 }
 
 app.on('ready', function() {

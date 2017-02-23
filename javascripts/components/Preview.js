@@ -20,7 +20,7 @@ class Preview extends Component {
         return 'autor';
       case 'subject':
         return 'género';
-      case 'pubDate':
+      case 'pubdate':
         return 'fecha de publicación';
       case 'description':
         return 'descripción';
@@ -50,7 +50,7 @@ class Preview extends Component {
               <Link to={`/${i}/read`}><button>Leer</button></Link>
             </figcaption>
           </figure>
-          {[...Object.keys(book)].filter(k => !(['title', 'cover', 'chapters'].includes(k))).map((key, i) => <Paragraph key={i} subtitle={this.spanish(key)} paragraph={book[key]} />)}
+          {[...Object.keys(book)].filter(k => !(['title', 'cover', 'metadata', 'chapters'].includes(k))).map((key, i) => <Paragraph key={i} subtitle={this.spanish(key)} paragraph={book[key]} />)}
         </article>
         <article className="clearfix">
           <Link to={`/${i}/read`}><button>Leer</button></Link>

@@ -1,10 +1,17 @@
 @import "colors.css";
 
-#ReadableBar {
+.readable {
   position: relative;
   top: 0px;
   left: 0px;
-  width: 100vw;
+  width: 100%;
+  height: 100%;
+}
+
+#ReadableBar {
+  position: relative;
+  left: 0px;
+  width: 100%;
   z-index: 100;
   height: 10vh;
 }
@@ -69,6 +76,7 @@
   color: #555;
   height: 60%;
   padding: 5px;
+  box-sizing: border-box;
 }
 
 #ReadableBar .title {
@@ -79,7 +87,7 @@
 
 .readable #navigation {
   position: fixed;
-  width: 100vh;
+  width: 100%;
   z-index: 500;
   bottom: 5%;
   display: flex;

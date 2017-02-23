@@ -12,7 +12,7 @@ class Main extends Component {
     let className = (value !== '') ? 'typed' : '';
     let matches = (value !== '') ? this.props.books
       .map((_, i) => i)
-      .filter(i => [this.props.books[i].title, this.props.books[i].author]
+      .filter(i => [this.props.books[i].title, this.props.books[i].author, this.props.books[i].subject, this.props.books[i].description]
       .join(' ').toLowerCase().includes(value)) :
       this.props.books.map((_, i) => i);
     this.props.updateForm(className, matches);

@@ -152,19 +152,20 @@ class Chapter extends Component {
 
   render() {
     const uri = Number(this.props.params.uri);
-    const { toggleTOC, css } = this.props.readable;
+    const { toggleTOC, css, location } = this.props.readable;
+    console.log(((Number(location) + 1) * 100 / Number(this.book.flow.length)));
     return (
         <div className="readable">
           <nav id="ReadableBar">
           <div className="dark">
             <button onClick={hashHistory.goBack}><i className="fa fa-times"></i></button>
-            <span>{(this.book && this.book.flow && location !== 0) ? (Number(location) * 100 / Number(this.book.flow.length)) + '%' : '0%' }</span>
-            <button onClick={this.bookmarkText}><i className="fa fa-bookmark"></i></button>
+            <span>{(this.book && this.book.flow && location !== 0) ? ((Number(location) + 1) * 100 / Number(this.book.flow.length)) + '%' : '0%' }</span>
+            <i className="fa fa-smile"></i>
           </div>
           <div className="light">
             <button onClick={this.toggleAside.bind(this)}><i className="fa fa-bars fa-2x"></i></button>
             <header className="title">{this.book && this.book.metadata && this.book.title}</header>
-            <i className="fa fa-smile-o fa-2x"></i>
+            <button onClick={this.bookmarkText}><i className="fa fa-bookmark fa-2x"></i></button>
           </div>
           </nav>
           <div className={`${this.book && this.book.metadata && this.book.metadata.subject}`}>

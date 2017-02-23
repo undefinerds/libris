@@ -59,7 +59,6 @@
     "electron-storage": "^1.0.7",
     "epub": "^0.1.6",
     "html-to-react": "^1.2.3",
-    "lowdb": "^0.15.5",
     "promise": "^7.1.1",
     "react": "^15.4.2",
     "react-css-modules": "^4.1.0",

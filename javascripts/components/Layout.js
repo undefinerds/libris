@@ -74,7 +74,7 @@ class Layout extends Component {
     console.log('funciono con ');
     console.log(push);
     if(push) {
-      this.context.router.push(push);
+      hashHistory.push(push);
     }
   }
 

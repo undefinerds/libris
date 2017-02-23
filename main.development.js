@@ -1,4 +1,7 @@
 var { app, BrowserWindow, crashReporter } = require('electron');
+var fs = require('fs');
+var path = require('path');
+
 var installExtensions = require('./devTools.config');
 crashReporter.start({
   productName: 'Libris',
@@ -6,6 +9,16 @@ crashReporter.start({
   submitURL: 'http://localhost:8080',
   uploadToServer: true
 });
+
+if(!fs.existsSync(path.resolve(app.getPath('userData'), 'Book.json'))) {
+  fs.writeFileSync(path.resolve(app.getPath('userData'), 'Book.json'),
+    '[]');
+}
+
+if(!fs.existsSync(path.resolve(app.getPath('userData'), 'config.json'))) {
+  fs.writeFileSync(path.resolve(app.getPath('userData'), 'config.json'),
+    fs.readFileSync(path.join(__dirname, 'json', 'config.json')));
+}
 
 app.on('window-all-closed', function() {
   if (process.platform != 'darwin') {

@@ -209,7 +209,7 @@ export const INSTRUCTIONS = [
   y: '45%',
   leftHand: 0,
   rightHand: 0,
-  puh: '/',
+  push: '/',
   messageBottom: false,
   message: (<p>¡Y listo! Ya conoces todo lo necesario para navegar por todos los libros de la biblioteca. Recuerda nunca rayarlos, y trátalos con respeto.</p>)
 },
