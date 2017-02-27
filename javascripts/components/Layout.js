@@ -7,13 +7,14 @@ import { hashHistory } from 'react-router';
 import { InstructionOwl } from './Owl';
 import { INSTRUCTIONS } from '../consts';
 
-//Passing the state through components via props
+// Passing the state through components via props
 function mapStateToProps(state) {
   return {
     loader: state.loader,
     books: state.books,
     form: state.form,
-    readable: state.readable
+    readable: state.readable,
+    config: state.config
   };
 }
 
@@ -58,7 +59,7 @@ class Layout extends Component {
   welcome() {
     return (
       <div style={{ position: 'fixed', top: '0', left: '0', width: '100vw', height: '100vh', overflow: 'hidden', backgroundColor: 'rgba(10, 10, 10, 0.6)', zIndex: '500'}}>
-        <button onClick={this.props.toggleWelcome} style={{ position: 'absolute', bottom: '5%', left: '50%', width: '110px', marginLeft: '-55px', background: 'none', border: 'none', textTransform: 'uppercase', color: '#FEFEFE'}}>Ignorar</button>
+        <button className='line' id="ignoreButton" onClick={this.props.toggleWelcome}>Ignorar</button>
         <InstructionOwl className="open-eye" {...this.props.loader}
           message={this.props.loader.message}
           x={this.props.loader.x}
@@ -74,6 +75,11 @@ class Layout extends Component {
     console.log('funciono con ');
     console.log(push);
     if(push) {
+      if(/\/read/gi.test(push)) {
+        const i = parseInt(push.slice(1, push.indexOf('r') - 1));
+        const book = this.props.books[i];
+        push = '/' + book.type + push;
+      }
       hashHistory.push(push);
     }
   }

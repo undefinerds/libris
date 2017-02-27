@@ -2,10 +2,20 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import SearchGrid from './SearchGrid';
 import styles from '../../stylesheets/main.css';
+import Modal from './Modal';
 
 // Loader :)
 
 class Main extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      showOptions: false,
+      optionValues: this.props.config
+    };
+    this.optionsModal = this.optionsModal.bind(this);
+  }
 
   handleChange(e) {
     let value = e.target.value.toLowerCase();
@@ -22,8 +32,23 @@ class Main extends Component {
     e.preventDefault();
   }
 
-  showOptions() {
-    return ;
+  handleOptions(e) {
+    e.preventDefault();
+    //this.props.udateConfig(this.state.options.values);
+    this.setState({ ...this.state, showOptions: false });
+  }
+
+  optionsModal() {
+    return (
+      <Modal onClose={() => this.setState({...this.state, showOptions: false })}>
+        <form onSubmit={this.handleOptions}>
+          <label>Fuente 
+            <input type="text" name="fontFamily" value={this.state.optionValues.fontFamily} />
+          </label>
+          <input type="submit" label="Actualizar" />
+        </form>
+      </Modal>
+    )
   }
 
   render() {
@@ -32,7 +57,7 @@ class Main extends Component {
         <div id="search" className={this.props.form.style}>
           <nav>
             <button id="help" onClick={this.props.toggleWelcome}><i className="fa fa-question-circle-o fa-2x "></i></button>
-            <button id="options" onClick={this.showOptions.bind(this)}><i className="fa fa-cog fa-2x"></i></button>
+            <button id="options" onClick={() => this.setState({...this.state, showOptions: true})}><i className="fa fa-cog fa-2x"></i></button>
           </nav>
           <header><h1>Libris</h1></header>
           <form id="searchBox" name="searchBox" onSubmit={this.handleSubmit}>
@@ -42,6 +67,7 @@ class Main extends Component {
           </label>
           </form>
         </div>
+        {this.state.showOptions && this.optionsModal()}
         <SearchGrid {...this.props} indexGrid={this.props.form.matches} />
       </div>
     )

@@ -1,10 +1,10 @@
 import { SHOW, HIDE, ADD_BOOK, EDIT_BOOK, REMOVE_BOOK, INSTRUCTIONS } from './consts';
 import initializeURL from '../lib/init';
+import {cleaner as cleanCache} from '../lib/cleaner';
 const Epub = require('epub');
+import path from 'path';
 import Promise from 'promise';
-import DB from '../lib/database';
 
-const Config = DB('config');
 
 export function addBook(name, author, data) {
   return {
@@ -12,7 +12,7 @@ export function addBook(name, author, data) {
   }
 }
 
-export function editBook(i, data) {
+export function editBook(data, i) {
   return {
     type: EDIT_BOOK,
     data,
@@ -34,10 +34,17 @@ export function updateLoader(type) {
   }
 }
 
-export function updateStore(type, data) {
+export function updateBooks(books) {
   return {
-    type,
-    data
+    type: 'NEW_BOOKS',
+    data: books
+  }
+}
+
+export function updateConfig(config) {
+  return {
+    type: 'NEW_CONFIG',
+    data: config
   }
 }
 
@@ -50,7 +57,7 @@ export function showError(type, error) {
 }
 
 export function read(url, i) {
-    let book = new Epub(url, `/${i}/image/`, `/${i}/read/`);
+    let book = new Epub(url, `/${path.extname(url).slice(1)}/${i}/image/`, `/${path.extname(url).slice(1)}/${i}/read/`);
     const promise = new Promise((resolve, reject) => {
       book.on('end', () => resolve(book));
       book.on('error', () => reject('error reading file'));
@@ -96,19 +103,16 @@ function initEbook(book, i) {
 
 export function initializeStore() {
   return function(dispatch) {
-    Config.get().then(config => {
-    const dir = (config.directory === 'default') ? process.env.HOME : config.directory;
     dispatch(updateLoader(SHOW));
-
-    initializeURL(dir, config.extensions).then(books => {
-        dispatch(updateStore('NEW', books));
-        dispatch(updateForm('', books.map((_, i) => i)));
-        dispatch(updateLoader(HIDE));
-        dispatch(changeWelcomeMessage(0));
-        return dispatch(showWelcome());
-
-    }).catch(e => { dispatch(showError('LOG', e)) });
-  });
+    initializeURL().then(store => {
+      dispatch(updateBooks(store.books));
+      dispatch(updateConfig(store.config));
+      cleanCache();
+      dispatch(updateForm('', store.books.map((_, i) => i)));
+      dispatch(updateLoader(HIDE));
+      dispatch(changeWelcomeMessage(0));
+      return dispatch(showWelcome());
+    }).catch(e => dispatch(showError('LOG', e)));
   }
 }
 

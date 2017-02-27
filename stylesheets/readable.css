@@ -137,3 +137,13 @@
 .romance .chapter > p::first-letter {
   font-family: var(--decoRomanceFont);
 }*/
+
+.readable .container {
+  left: 0%;
+  box-sizing: border-box;
+  margin: 5px 10px;
+  column-gap: 20px;
+  column-fill: balance;
+  columns: 2;
+  position: fixed;
+}

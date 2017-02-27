@@ -1,6 +1,6 @@
 import { ADD_BOOK, EDIT_BOOK, REMOVE_BOOK } from '../consts';
 
-export default function books(state = [], action: Object) {
+export default function books(state = [], action) {
   switch (action.type) {
     case ADD_BOOK:
       return [
@@ -10,7 +10,10 @@ export default function books(state = [], action: Object) {
     case EDIT_BOOK:
       return [
         ...state.slice(0, action.i),
-        action.data.book,
+       {
+        ...state[action.i],
+        ...action.data
+      },
         ...state.slice(action.i + 1)
       ];
     case REMOVE_BOOK:
@@ -18,9 +21,8 @@ export default function books(state = [], action: Object) {
         ...state.slice(0, action.i),
         ...state.slice(action.i + 1)
       ];
-    case 'NEW':
+    case 'NEW_BOOKS':
       return [
-        ...state,
         ...action.data
       ];
     default:

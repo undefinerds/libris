@@ -5,11 +5,11 @@
   "description": "Virtual library for kids",
   "scripts": {
     "start": "npm run build && npm run electron",
-    "electron": "./node_modules/electron-prebuilt/dist/electron .",
+    "electron": "./node_modules/electron-prebuilt/dist/electron main.js",
     "devtron": "./node_modules/electron-prebuilt/dist/electron main.development.js",
-    "watch": "./node_modules/.bin/webpack-dev-server --config webpack.base.js",
+    "watch": "./node_modules/.bin/webpack-dev-server --config dev.webpack.js",
     "electron-rebuild": "./node_modules/.bin/electron-rebuild",
-    "build": "./node_modules/.bin/webpack --config webpack.base.js",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.base.js",
     "pack": "./node_modules/.bin/build --publish never",
     "pack:linux": "./node_modules/.bin/build --linux",
     "pack:win": "./node_modules/.bin/build --win"
@@ -32,7 +32,7 @@
     "electron-packager": "^8.5.1",
     "electron-prebuilt": "^1.4.13",
     "electron-rebuild": "^1.5.7",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.0.0",
     "file-loader": "^0.10.0",
     "node-libs-browser": "^0.5.2",
     "postcss": "^5.2.11",
@@ -59,21 +59,25 @@
     "electron-storage": "^1.0.7",
     "epub": "^0.1.6",
     "html-to-react": "^1.2.3",
+    "pdfjs-dist": "^1.7.316",
     "promise": "^7.1.1",
     "react": "^15.4.2",
     "react-css-modules": "^4.1.0",
     "react-dom": "^15.4.2",
-    "react-reader": "^0.10.0",
+    "react-measure": "^1.4.5",
+    "react-pdf": "^0.0.10",
+    "react-pdf-pages": "^0.1.0",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
+    "redux-on-state-change": "^1.0.0",
     "redux-thunk": "^2.2.0"
   },
   "author": {
     "name": "Jhinel Arcaya, Joseph Perez, Daviannys Miquilena, Alcides Pacheco, Yandra Yepez",
     "email": "ajhinel@uptag.edu.ve",
-    "url": "https://github.com/undefinderds"
+    "url": "https://github.com/undefinerds"
   },
   "license": "MIT",
   "bugs": {
@@ -84,7 +88,7 @@
     "appId": "org.undefinerds.libris",
     "category": "public.education.books",
     "files": [
-      "dist/",
+      "json/",
       "public/",
       "node_modules/",
       "index.html",

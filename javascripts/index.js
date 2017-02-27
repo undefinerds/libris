@@ -7,10 +7,12 @@ import routes from './routes';
 
 render(
   <Provider store={store} history={history}>
-    <Router history={hashHistory}>
+    <Router history={hashHistory} onUpdate={() => window.scrollTo(0, 0)}>
     { routes }
     </Router>
   </Provider>,
   document.getElementById('root')
 );
+
+
 

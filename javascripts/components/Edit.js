@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import styles from '../../stylesheets/form.css';
 class Edit extends Component {
   constructor(props) {
     super(props);
@@ -13,14 +13,19 @@ class Edit extends Component {
       pubDate: book.pubDate || '',
       editorial: book.editorial || ''
     };
-    Object.assign(this.state, {});
 
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    return this.props.onSubmit(this.state);
   }
 
   handleUpdate(key, e) {
     this.setState({
-      ...state,
+      ...this.state,
       [key]: e.target.value
     })
   }
@@ -28,10 +33,9 @@ class Edit extends Component {
   render() {
     return (
       <div id="edit">
-        <header>
-          <h1>{this.state.title}</h1>
-        </header>
-        <form id="bookForm">
+        <header>{this.state.title}</header>
+        <form id="bookForm" onSubmit={this.handleSubmit}>
+        <div className="left">
           <label>
             <span>Título</span>
             <input value={this.state.title} onChange={(e) => this.handleUpdate('title', e)} />
@@ -57,10 +61,14 @@ class Edit extends Component {
             <span>Editorial</span>
             <input value={this.state.editorial} onChange={(e) => this.handleUpdate('editorial', e)} />
           </label>
+          </div>
+          <div className="right">
           <label>
             <span>Descripción</span>
             <input value={this.state.description} onChange={(e) => this.handleUpdate('description', e)} />
           </label>
+          </div>
+          <input className="clearfix" type="submit" value="Actualizar" />
         </form>
       </div>
     )

@@ -160,14 +160,6 @@ export const INSTRUCTIONS = [
   y: '45%',
   leftHand: 0,
   rightHand: 0,
-  messageBottom: false,
-  message: (<p>Vayamos a otro capítulo.</p>)
-},
-{
-  x: '45%',
-  y: '45%',
-  leftHand: 0,
-  rightHand: 0,
   push: '/2/read/2',
   messageBottom: false,
   message: (<p>Te mostraré un secreto que guarda esta biblioteca...</p>)

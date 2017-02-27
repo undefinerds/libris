@@ -14,12 +14,18 @@ fs.readdirSync('node_modules')
 
 module.exports = {
   context: __dirname,
-
-  entry: ['babel-polyfill', path.join(process.cwd(), 'javascripts', 'index.js')],
+  devtool: 'source-map',
+  entry: ['babel-polyfill', 'webpack/hot/dev-server','./javascripts/index.js'],
 
   output: {
     path: path.resolve(__dirname || process.cwd(), 'public'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: 'http://localhost:8080/built/'
+  },
+
+  devServer: {
+    contentBase: path.resolve(__dirname, 'public'),
+    publicPath: 'http://localhost:8080/built/'
   },
 
   module: {
@@ -44,10 +50,11 @@ module.exports = {
     ]
   },
   externals: nodeModules,
-  target: 'electron'/*,
+  target: 'electron',
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
-  ]*/
+  ]
 
  // resolve: {
    // extensions: ['', '.js', '.jsx', '.json', '.node' ]

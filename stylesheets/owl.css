@@ -20,6 +20,7 @@
       height: 102px;
       top: 50%;
       background-color: #6B5734;
+      cursor: pointer;
 }
 
   .owl::before,
@@ -152,6 +153,9 @@
     left: 50%;
     width: 80%;
     transform: translateX(-50%);
+    background-color: #FEFEFE;
+    padding: 8px;
+    box-sizing: border-box;
   }
 
   #message.top {
@@ -164,24 +168,43 @@
 
   #message, #message p {
     font-size: 1.2rem;
-    color: #FEFEFE;
+    color: #1D1D1D;
   }
 
   #message::before, #message::after {
     position: absolute;
     content: "";
-    width: 80%;
+    width: 100%;
     height: 5px;
-    background-color: #FEFEFE;
+    left: 0%;
+    /*background-color: #FEFEFE;*/
+    background-color: rgba(108, 166, 89, 1);
   }
 
   #message::before {
-    top: -20%;
-    border-radius: 5px 5px 0px 0px;
+    top: 0%;
   }
 
   #message::after {
-    bottom: -20%;
-    left: 0%;
-    border-radius: 0px 0px 5px 5px;
+    bottom: 0%;
+  }
+
+  #ignoreButton {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    width: 8rem;
+    margin-left: -55px;
+    background: none;
+    border: 5px solid rgba(149, 19, 19, 0);
+    font-family: sans;
+    text-transform: uppercase;
+    word-spacing: 1px;
+    font-weight: 600;
+    color: #FEFEFE;
+    border-radius: 10px;
+  }
+
+  #ignoreButton:hover {
+    background: rgba(149, 19, 19, 1);
   }

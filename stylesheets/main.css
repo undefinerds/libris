@@ -48,6 +48,10 @@ a {
   text-decoration: none;
 }
 
+button {
+  cursor: pointer;
+}
+
 #search {
   height: 100vh;
   margin: 0px;

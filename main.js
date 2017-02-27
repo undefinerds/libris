@@ -8,26 +8,41 @@ app.on('window-all-closed', function() {
   }
 });
 
-if(!fs.existsSync(path.resolve(app.getPath('userData'), 'Book.json'))) {
-  fs.writeFileSync(path.resolve(app.getPath('userData'), 'Book.json'),
-    '[]');
-}
-
-if(!fs.existsSync(path.resolve(app.getPath('userData'), 'config.json'))) {
-  fs.writeFileSync(path.resolve(app.getPath('userData'), 'config.json'),
-    fs.readFileSync(path.join(__dirname, 'json', 'config.json')));
-}
+let mainWindow = null;
 
 app.on('ready', function() {
-  var mainWindow = new BrowserWindow({width: 800, height: 600});
-  mainWindow.loadURL(`file://${__dirname}/public/index.html`);
+  if(!fs.existsSync(path.join(app.getPath('userData'), 'Libris.json'))) {
+    createStorage();
+  }
+  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow.loadURL('file://' + __dirname +'/public/index.html');
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
     mainWindow.focus();
-    mainWindow.openDevTools();
+  });
+
+  mainWindow.webContents.on('createStorage', function() {
+    createStorage();
+    mainWindow.webContents.reload();
+  });
+
+ mainWindow.webContents.on('cleanCache', function() {
+    mainWindow.webContents.session.defaultSession.clearCache(function() {
+      console.log('cleaned');
+    });
   });
 
   mainWindow.on('closed', function() {
     mainWindow = null;
   });
 });
+
+
+function createStorage() {
+  return fs.writeFileSync(path.resolve(app.getPath('userData'), 'Libris.json'),
+    JSON.stringify({
+      books: [],
+      config: JSON.parse(fs.readFileSync(path.join(__dirname, 'json', 'config.json')))
+    })
+  );
+}
