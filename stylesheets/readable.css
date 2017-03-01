@@ -16,35 +16,53 @@
   height: 10vh;
 }
 
-.readable aside:first-of-type {
+.readable aside {
   position: fixed;
   top: 0%;
-  left: -100%;
-  height: 100vh;
+  height: 100%;
   width: 16vw;
   background-color: var(--mainBackgroundColor);
+  visibility: hidden;
 }
 
-.readable aside:first-of-type button {
+.readable aside button {
   background: none;
   border: none;
 }
 
-.readable aside:first-of-type button:hover, .readable aside:first-of-type button:focus {
+.readable aside button:hover, .readable aside button:focus {
   background-color: var(--secondaryColorDarker);
 }
 
-.readable aside:first-of-type .show-aside {
-  display: block;
+.readable aside .show-aside {
+  visibility: visible;
+  z-index: 500;
+}
+
+.readable aside #left {
+  left: -100%;
+}
+
+.readable aside #right {
+  right: -100%;
+}
+
+.readable aside .show-aside #left {
+  left: 0%;
+}
+
+.readable aside .show-aside #right {
+  right: 0%;
 }
 
 .readable aside:first-of-type .hidden {
-  display: none;
+  visibility: hidden;
 }
 
 #ReadableBar button {
   background: none;
   border: none;
+  color: var(--secondaryColor);
 }
 
 #ReadableBar .light, #ReadableBar .dark {
@@ -73,7 +91,6 @@
 
 #ReadableBar .light {
   top: 50%;
-  color: #555;
   height: 60%;
   padding: 5px;
   box-sizing: border-box;
@@ -101,6 +118,10 @@
   color: #555;
 }
 
+
+.readable #navigation button:hover, .readable #navigation button:focus {
+  color: var(--secondaryColor);
+}
 
 /*
 .readable .chapter > p::first-letter {
@@ -143,7 +164,7 @@
   box-sizing: border-box;
   margin: 5px 10px;
   column-gap: 20px;
-  column-fill: balance;
   columns: 2;
   position: fixed;
+  min-height: 400px;
 }

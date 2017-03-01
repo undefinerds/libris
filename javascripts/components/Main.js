@@ -10,11 +10,19 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
+    this.formats = ['epub', 'pdf'];
     this.state = {
       showOptions: false,
-      optionValues: this.props.config
+      optionValues: {
+        ...this.props.config,
+        extensions: {
+          epub: !!this.props.config.extensions.includes('epub'),
+          pdf: !!this.props.config.extensions.includes('pdf')
+        }
+      }
     };
     this.optionsModal = this.optionsModal.bind(this);
+    this.updateOptions = this.updateOptions.bind(this);
   }
 
   handleChange(e) {
@@ -34,17 +42,46 @@ class Main extends Component {
 
   handleOptions(e) {
     e.preventDefault();
-    //this.props.udateConfig(this.state.options.values);
-    this.setState({ ...this.state, showOptions: false });
+    console.log(this.state);
+    extensions = Object.keys(this.state.optionValues.extensions).filter((name) => this.state.optionValues.extensions[name]);
+    this.props.updateConfig({
+      ...this.state.optionValues,
+      extensions
+    });
+    this.props.updateBooks(this.props.books.map(book => {
+      book.hidden = extensions.includes(book.type);
+      return book;
+    }));
+    this.setState({ ...this.state,
+    showOptions: false });
+  }
+
+  updateOptions(key, e, checkbox) {
+    this.setState({
+      ...this.state,
+      optionValues: {
+        ...this.state.optionValues,
+        [key]: !!(checkbox) ? {
+          ...this.state.optionValues[key],
+          [e]: !this.state.optionValues[key][e]
+        } : e.target.value
+      }
+    })
   }
 
   optionsModal() {
     return (
       <Modal onClose={() => this.setState({...this.state, showOptions: false })}>
-        <form onSubmit={this.handleOptions}>
+        <form onSubmit={this.handleOptions.bind(this)}>
           <label>Fuente 
-            <input type="text" name="fontFamily" value={this.state.optionValues.fontFamily} />
+            <input type="text" name="fontFamily" value={this.state.optionValues.fontFamily} onChange={(e) => this.updateOptions('fontFamily', e)} />
           </label>
+          <span>Formatos</span>
+          {this.formats.map((format, i) =>
+            <label key={i}>
+              <input type="checkbox" value={format} checked={this.state.optionValues.extensions[format]} onChange={(e) =>this.updateOptions('extensions', format, true)} /> 
+              {format}
+            </label>)}
           <input type="submit" label="Actualizar" />
         </form>
       </Modal>

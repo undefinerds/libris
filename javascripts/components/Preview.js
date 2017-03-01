@@ -37,6 +37,8 @@ class Preview extends Component {
         return 'descripción';
       case 'type':
         return 'tipo';
+      case 'views':
+        return 'visto';
       default:
         return word;
     }
@@ -73,7 +75,7 @@ class Preview extends Component {
           <figure className="left">
             <img src={book && book.cover} alt={`Cubierta de ${book.title}`}/>
             <figcaption>
-              <Link to={`/${book.type}/${i}/read`}><button>Leer</button></Link>
+              <Link to={`/${book.type}/${i}/read`}><button><i className="fa fa-eye"></i> {book.views}</button></Link>
             </figcaption>
           </figure>
           {[...Object.keys(book)].filter(k => !(['title', 'cover', 'metadata', 'chapters'].includes(k))).map((key, i) => <Paragraph key={i} subtitle={this.spanish(key)} paragraph={book[key]} />)}

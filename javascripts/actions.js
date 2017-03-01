@@ -20,7 +20,6 @@ export function editBook(data, i) {
   }
 }
 
-
 export function deleteBook(i) {
   return {
     type: REMOVE_BOOK,
@@ -109,8 +108,8 @@ export function initializeStore() {
       dispatch(updateConfig(store.config));
       cleanCache();
       dispatch(updateForm('', store.books.map((_, i) => i)));
-      dispatch(updateLoader(HIDE));
       dispatch(changeWelcomeMessage(0));
+      dispatch(updateLoader(HIDE));
       return dispatch(showWelcome());
     }).catch(e => dispatch(showError('LOG', e)));
   }

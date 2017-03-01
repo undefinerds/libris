@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run build && npm run electron",
     "electron": "./node_modules/electron-prebuilt/dist/electron main.js",
-    "devtron": "./node_modules/electron-prebuilt/dist/electron main.development.js",
+    "devtron": "./node_modules/electron-prebuilt/dist/electron dev.js",
     "watch": "./node_modules/.bin/webpack-dev-server --config dev.webpack.js",
     "electron-rebuild": "./node_modules/.bin/electron-rebuild",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.base.js",
@@ -94,12 +94,13 @@
       "index.html",
       "main.js",
       "config.json",
+      "canaima.json",
       "bundle.js",
       "package.json"
     ],
     "linux": {
       "target": [
-        "pacman",
+        "deb",
         "AppImage"
       ]
     },

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from '../../stylesheets/form.css';
+
 class Edit extends Component {
   constructor(props) {
     super(props);
@@ -8,7 +8,7 @@ class Edit extends Component {
       title: book.title || '',
       author: book.author || '',
       subject: book.subject || '',
-      description: book.subject || '',
+      description: book.description || '',
       edition: book.edition || '',
       pubDate: book.pubDate || '',
       editorial: book.editorial || ''
@@ -35,7 +35,7 @@ class Edit extends Component {
       <div id="edit">
         <header>{this.state.title}</header>
         <form id="bookForm" onSubmit={this.handleSubmit}>
-        <div className="left">
+        <div>
           <label>
             <span>Título</span>
             <input value={this.state.title} onChange={(e) => this.handleUpdate('title', e)} />
@@ -62,13 +62,13 @@ class Edit extends Component {
             <input value={this.state.editorial} onChange={(e) => this.handleUpdate('editorial', e)} />
           </label>
           </div>
-          <div className="right">
+          <div className="flexright">
           <label>
             <span>Descripción</span>
             <input value={this.state.description} onChange={(e) => this.handleUpdate('description', e)} />
           </label>
           </div>
-          <input className="clearfix" type="submit" value="Actualizar" />
+          <input className="clearflex" type="submit" value="Actualizar" />
         </form>
       </div>
     )

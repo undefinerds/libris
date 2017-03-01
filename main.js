@@ -19,6 +19,7 @@ app.on('ready', function() {
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
     mainWindow.focus();
+    mainWindow.openDevTools();
   });
 
   mainWindow.webContents.on('createStorage', function() {
