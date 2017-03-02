@@ -2,9 +2,9 @@
 
 Virtual library for kids.
 
-This project is using Electron, React, MongoDB and has almost everything you need just to start coding.
+This project is using Electron, React, Redux and has almost everything you need just to start coding.
 
-You need to install `mongoDB` and starts running at default port `mongodb://127.0.0.1:27017/`.
+It uses Electron-Storage to save all changes :hearts:
 
 ## Table of Contents
 
@@ -21,8 +21,8 @@ You need to install `mongoDB` and starts running at default port `mongodb://127.
 
 ## Installation
 
-It needs MongoDB installed. You can install dependencies with `npm` but you can
-also use `yarn` for it. This installation process uses `git`.
+You can install dependencies with `npm` but you can also use `yarn` for it.
+This installation process uses `git`.
 
 ```
 
@@ -37,7 +37,7 @@ And then you're ready.
 
 ## Scripts
 
-For development we recommend run `npm run watch` and in another terminal `npm run electron` (until we handle different environments).
+For development we recommend run `npm run watch` and in another terminal `npm run electron`.
 
 ### npm start
 
@@ -118,5 +118,6 @@ You can delete or rename the other files.
 
 ## Something Missing?
 
-Troubleshooting or if you have ideas, [let us know :smile:](https://github.com/undefinerds/libris/issues)
-Do you wanna contribute? [Make a PR :heart:](https://github.com/undefinerds/libris/)
+Troubleshooting or if you have ideas, [let us know](https://github.com/undefinerds/libris/issues) :smile:
+Do you wanna contribute? [Make a PR](https://github.com/undefinerds/libris/)
+:heart:
