@@ -1,6 +1,7 @@
-var { app, BrowserWindow, crashReporter } = require('electron');
+var { app, BrowserWindow, crashReporter, ipcMain, session } = require('electron');
 var fs = require('fs');
 var path = require('path');
+var dJSON = require('dirty-json');
 
 var installExtensions = require('./devTools.config');
 crashReporter.start({
@@ -32,31 +33,27 @@ app.on('ready', function() {
     mainWindow.show();
     mainWindow.focus();
   });
-
-  mainWindow.webContents.on('createStorage', function() {
-    createStorage();
-    mainWindow.webContents.reload();
-  });
   
   installExtensions();
   mainWindow.openDevTools();
 
-  mainWindow.webContents.on('cleanCache', function() {
-    mainWindow.webContents.session.defaultSession.clearCache(function() {
+  ipcMain.on('cleanCache', function() {
+    session.defaultSession.clearCache(function() {
       console.log('cleaned');
     });
   });
 
-  mainWindow.on('closed', function() {
+  ipcMain.on('createStorage', (event) => {
+    fs.writeFileSync('./funciono.txt', 'creo que si');
+    createStorage();
+  });
+
+  ipcMain.on('closed', function() {
     mainWindow = null;
   });
 });
 
 function createStorage() {
-  return fs.writeFileSync(path.resolve(app.getPath('userData'), 'Libris.json'),
-    JSON.stringify({
-      books: [],
-      config: JSON.parse(fs.readFileSync(path.join(__dirname, 'json', 'config.json')))
-    })
-  );
+  return dJSON.parse(fs.readFileSync(path.resolve(app.getPath('userData'), 'Libris.json'), 'utf-8'))
+  .then((res) => fs.writeFileSync(path.resolve(app.getPath('userData'), 'Libris.json'), res));
 }

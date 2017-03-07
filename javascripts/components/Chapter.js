@@ -18,14 +18,9 @@ class Chapter extends Component {
     this.book = null;
     this.timer = null;
     this.containerWidth = null;
-    this.state = {
-      proportions: {
-      }
-    };
   }
 
   componentWillMount() {
-    window.addEventListener('keyPress', this.arrowKeys.bind(this));
     const bookId = Number(this.props.params.uri), that = this;
     read(this.props.books[bookId].url, bookId).then(book => {
       that.book = book;
@@ -41,9 +36,9 @@ class Chapter extends Component {
 
   componentDidMount() {
     this.setTimer.call(this);
+
     const i = Number(this.props.params.uri);
     this.props.editBook({ views: this.props.books[i].views + 1}, i);
-    this.containerWidth = Number(window.getComputedStyle(findDOMNode(this.refs.container)).getPropertyValue("width").replace(/(px|em|rem|\D+)$/g, ''));
   }
 
   setTimer() {
@@ -57,9 +52,6 @@ class Chapter extends Component {
   }
 
   setChapter() {
-    this.setState({
-      proportions: {}
-    });
     const {location} = this.props.readable;
     this.props.updateReadable('UPDATE_READABLE', { loaded: false });
     const chapterId = this.book.flow[location].id, that = this;
@@ -80,8 +72,6 @@ class Chapter extends Component {
       .then(texts => {
         const chapterText = '<div class="chapter">' + texts.join('img src="') + '</div>';
         that.props.updateReadable('UPDATE_READABLE', { loaded: true, chapterText });
-        console.log(that.book);
-
         const style = that.book.manifest[Object.keys(that.book.manifest).filter(ex => /(style|css)/i.test(ex)).pop()];
         if(style) {
           that.book.getFile(style.id, function(err, data, mimeType) {
@@ -89,7 +79,6 @@ class Chapter extends Component {
             that.props.updateReadable('UPDATE_READABLE', { css: data });
           });
         }
-        setTimeout(that.setEpubView.bind(that), 800);
       })
       .catch(e => that.props.updateReadable('READABLE_REPORT_ERROR', null, e));
     });
@@ -101,53 +90,15 @@ class Chapter extends Component {
     }
   }
 
-  setEpubView() {
-    let {height, width} = this.state.proportions;
-    console.log(window.getComputedStyle(findDOMNode(this.refs.chapter)).getPropertyValue("height"));
-    //if(!!this.state.proportions.columns || this.state.proportions.columns === 0 && document.querySelector('#container'))
-    if(!height || this.state.height > 400)
-      height = Number(window.getComputedStyle(findDOMNode(this.refs.chapter)).getPropertyValue("height").replace(/(px|em|rem|\D+)$/g, ''));
-    if(height < 390) {
-      height = 400;
-    }
-    if(!width || width < (this.conwainerWidth - 40) / 2)
-      width = Number(window.getComputedStyle(findDOMNode(this.refs.chapter)).getPropertyValue("width").replace(/(px|em|rem|\D+)$/g, ''));
-
-    const columns = Math.round((height) / 390);
-    
-    console.log(width, columns);
-    // 400px ~ 25 lines because 1 line 1rem and 1rem is 16px (at least the init)
-    
-    const columnWidth = (width - 40) / 2;
-    console.log(columnWidth);
-    this.setState({
-      proportions: {
-        height,
-        width,
-        columns,
-        columnWidth
-      }
-    });
-    console.log(this.state);
-  }
-
   prevChapter() {
-    if(this.props.readable.position === 0 && this.props.readable.location > 0) {
-      this.props.updateReadable('UPDATE_READABLE', { location: this.props.readable.location - 1, position: this.state.proportions.columns * 100 });
-    } else if(this.props.readable.position > 0) {
-      this.props.updateReadable('UPDATE_READABLE', { position: this.props.readable.position - 100 });
-    } else {
-      return ;
+    if(this.props.readable.location > 0) {
+      this.props.updateReadable('UPDATE_READABLE', { location: this.props.readable.location - 1 });
     }
   }
 
   nextChapter() {
-    if(this.props.readable.position < this.state.proportions.columns * 100) {
-      this.props.updateReadable('UPDATE_READABLE', { position: this.props.readable.position + 100 });
-    } else if(this.props.readable.location < this.book.flow.length) {
-      this.props.updateReadable('UPDATE_READABLE', { location: this.props.readable.location + 1, position: 0 });
-    } else {
-      return ;
+    if(this.props.readable.location < this.book.flow.length - 1) {
+      this.props.updateReadable('UPDATE_READABLE', { location: this.props.readable.location + 1 });
     }
   }
 
@@ -210,32 +161,26 @@ class Chapter extends Component {
     console.log(e);
     switch(e.keyCode) {
       case 37:
-        this.prevChapter();
+        this.prevChapter.call(this);
         break;
       case 39:
-        this.nextChapter();
+        this.nextChapter.call(this);
         break;
     }
   }
 
   render() {
-    /* columns es el 100%
-    el 100% de la actual pag es ese porcentaje, por ende
-    columns --- > percent
-    position---> x= ?    
-    */
     const uri = Number(this.props.params.uri);
     const { toggleTOC, css, location, position } = this.props.readable;
     const innerText = this.props.readable.loaded && !!this.props.readable.chapterText ?
     this.htmlParser.call(this, this.props.readable.chapterText) :
     <ReadingOwl bookName='B' />;
-    const chapterPercent = (this.book && this.book.flow && location !== 0) ? Math.round(Number(location) * 100 / Number(this.book.flow.length)) : 0;
     return (
-        <div className="readable">
+        <div className="readable" onKeyDown={this.arrowKeys.bind(this)}>
           <nav id="ReadableBar">
           <div className="dark">
             <button onClick={hashHistory.goBack}><i className="fa fa-times"></i></button>
-            <span>{ (this.state.proportions.columns && location !== 0) ? Math.round(((this.props.readable.position / 100) * chapterPercent + chapterPercent) / this.state.proportions.columns)  + '%' : '0%' }</span>
+            <span>{ (location !== 0 && this.book && this.book.flow) ? Math.round(location * 100 / (this.book.flow.length - 1))  + '%' : '0%' }</span>
             <i className="fa fa-smile"></i>
           </div>
           <div className="light">
@@ -257,15 +202,11 @@ class Chapter extends Component {
               <button onClick={this.prevChapter.bind(this)}><i className="fa fa-chevron-left fa-2x"></i></button>
               <button onClick={this.nextChapter.bind(this)}><i className="fa fa-chevron-right fa-2x"></i></button>
             </nav>
-            <article ref="container" style={ { maxWidth: '100%', maxHeight: '70vh', bottom: '10%'} }>
+            <article ref="container" onKeyDown={this.arrowKeys.bind(this)} style={ { maxWidth: '100%', maxHeight: '70vh', bottom: '10%'} }>
               <style>{css}</style>
               <div ref="chapter" className="container"
-              style={{
-                columns: `${this.state.proportions.columnWidth}px`,
-                height: `${this.state.proportions.height}px`,
-                left: `${this.props.readable.position * -100}%`
-              }}>
-                <Reader text={innerText} />
+              style={{ margin: '4rem 3rem' }}>
+                {innerText}
               </div>
             </article>
             </section>
@@ -288,15 +229,3 @@ Chapter.defaultProps = {
 export default Chapter;
 
 
-
-
-
-class Reader extends Component {
-  render() {
-    return (
-      <div>
-      {this.props.text}
-      </div>
-    )
-  }
-}

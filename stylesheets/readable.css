@@ -162,9 +162,4 @@
 .readable .container {
   left: 0%;
   box-sizing: border-box;
-  margin: 5px 10px;
-  column-gap: 20px;
-  columns: 2;
-  position: fixed;
-  min-height: 400px;
 }

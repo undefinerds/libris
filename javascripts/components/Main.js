@@ -13,6 +13,7 @@ class Main extends Component {
     this.formats = ['epub', 'pdf'];
     this.state = {
       showOptions: false,
+      categorize: true,
       optionValues: {
         ...this.props.config,
         extensions: {
@@ -28,11 +29,13 @@ class Main extends Component {
   handleChange(e) {
     let value = e.target.value.toLowerCase();
     let className = (value !== '') ? 'typed' : '';
-    let matches = (value !== '') ? this.props.books
-      .map((_, i) => i)
+    if (value !== '') { this.setState({categorize:false}); }
+    let availableBooks = this.props.books.map((_, i) => i)
+      .filter(i => !(this.props.books[i].hidden));
+    let matches = (value !== '') ? availableBooks
       .filter(i => [this.props.books[i].title, this.props.books[i].author, this.props.books[i].subject, this.props.books[i].description]
       .join(' ').toLowerCase().includes(value)) :
-      this.props.books.map((_, i) => i);
+      availableBooks;
     this.props.updateForm(className, matches);
   }
 
@@ -43,13 +46,13 @@ class Main extends Component {
   handleOptions(e) {
     e.preventDefault();
     console.log(this.state);
-    extensions = Object.keys(this.state.optionValues.extensions).filter((name) => this.state.optionValues.extensions[name]);
+    const extensions = Object.keys(this.state.optionValues.extensions).filter((name) => this.state.optionValues.extensions[name]);
     this.props.updateConfig({
       ...this.state.optionValues,
       extensions
     });
     this.props.updateBooks(this.props.books.map(book => {
-      book.hidden = extensions.includes(book.type);
+      book.hidden = !(extensions.includes(book.type));
       return book;
     }));
     this.setState({ ...this.state,
@@ -105,7 +108,7 @@ class Main extends Component {
           </form>
         </div>
         {this.state.showOptions && this.optionsModal()}
-        <SearchGrid {...this.props} indexGrid={this.props.form.matches} />
+        {this.props.loader.show === 'hidden' && <SearchGrid {...this.props} indexGrid={this.props.form.matches} categorize={this.state.categorize} />}
       </div>
     )
   }

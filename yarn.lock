@@ -2024,7 +2024,7 @@ electron-builder-util@13.10.1, electron-builder-util@~13.10.1:
     stat-mode "^0.2.2"
     tunnel-agent "^0.4.3"
 
-electron-builder@^13.9.0:
+electron-builder@^13.11.1:
   version "13.11.1"
   resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-13.11.1.tgz#6f338dcc0d00a3cf415e0a6d14307bf4990a2081"
   dependencies:

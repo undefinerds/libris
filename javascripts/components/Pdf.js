@@ -9,6 +9,9 @@ class PdfReader extends Component {
     this.book = null;
     this._onDocumentCompleted = this._onDocumentCompleted.bind(this);
     this._onPageCompleted = this._onPageCompleted.bind(this);
+    this.state = {
+      page: 1
+    };
   }
 
   componentWillMount() {
@@ -70,7 +73,7 @@ class PdfReader extends Component {
               <button onClick={this.nextChapter.bind(this)}><i className="fa fa-chevron-right fa-2x"></i></button>
             </nav>
             <section id="container" style={ { maxWidth: '90%', margin: 'auto' } }>
-            <PDF file={url} page={this.state.page} scale="1.0" onDocumentComplete={this._onDocumentCompleted} onPageComplete={this._onPageCompleted} loading={<ReadingOwl bookName='B' />} />
+              <PDF file={url} page={this.state.page} scale="1.0" onDocumentComplete={this._onDocumentCompleted} onPageComplete={this._onPageCompleted} loading={<ReadingOwl bookName='B' />} />
             </section>
           </div>
           {this.props.readable && this.props.readable.paused && this.displayPauseMessage('¡A descansar!')}

@@ -85,8 +85,9 @@ class Layout extends Component {
   }
 
   render() {
+    const { config } = this.props;
     return (
-      <div>
+      <div style={{ fontFamily: config.fontFace, fontSize: config.fontSize }}>
         <Loader {...this.props} />
         {this.props.loader.welcome && this.welcome() }
         { React.cloneElement(this.props.children, this.props) }

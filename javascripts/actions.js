@@ -1,6 +1,5 @@
 import { SHOW, HIDE, ADD_BOOK, EDIT_BOOK, REMOVE_BOOK, INSTRUCTIONS } from './consts';
 import initializeURL from '../lib/init';
-import {cleaner as cleanCache} from '../lib/cleaner';
 const Epub = require('epub');
 import path from 'path';
 import Promise from 'promise';
@@ -106,8 +105,7 @@ export function initializeStore() {
     initializeURL().then(store => {
       dispatch(updateBooks(store.books));
       dispatch(updateConfig(store.config));
-      cleanCache();
-      dispatch(updateForm('', store.books.map((_, i) => i)));
+      dispatch(updateForm('', store.books.map((_, i) => i).filter(i => !(store.books[i].hidden))));
       dispatch(changeWelcomeMessage(0));
       dispatch(updateLoader(HIDE));
       return dispatch(showWelcome());
