@@ -30,8 +30,8 @@ class SearchGrid extends Component {
     return (
       <div>
         { subjects.map(sub => (
-          <article>
-            <h3>{sub}</h3>
+          <article className="grid" key={sub}>
+            <h3 className="subtitle">{sub}</h3>
             <hr />
             {indexGrid
               .filter((i) => books[i].subject.includes(sub))
@@ -45,7 +45,7 @@ class SearchGrid extends Component {
   render() {
     const { indexGrid, books } = this.props;
     return (
-      <section style={styles} className="grid">
+      <section style={styles}>
         { indexGrid && indexGrid.length > 0 && books.length > 0 && this.categorize() }
       </section>
     )

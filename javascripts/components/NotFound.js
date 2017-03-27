@@ -6,7 +6,7 @@ class NotFound extends Component {
   render() {
     return (
       <Owl clasName={'lost'}>
-      <Link style={{right: '0%', textDecoration: 'none', color: 'green'}} to="/">Volver</Link>
+      <Link style={{bottom: '0%', right: '0%', textDecoration: 'none', color: 'green'}} to="/">Volver</Link>
       </Owl>
     )
   }

@@ -1,4 +1,4 @@
-var { app, BrowserWindow } = require('electron');
+var { app, BrowserWindow, ipcMain, session } = require('electron');
 var fs = require('fs');
 var path = require('path');
 
@@ -19,16 +19,15 @@ app.on('ready', function() {
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
     mainWindow.focus();
-    mainWindow.openDevTools();
   });
 
-  mainWindow.webContents.on('createStorage', function() {
+  ipcMain.on('createStorage', function() {
     createStorage();
     mainWindow.webContents.reload();
   });
 
- mainWindow.webContents.on('cleanCache', function() {
-    mainWindow.webContents.session.defaultSession.clearCache(function() {
+  ipcMain.on('cleanCache', function() {
+    session.defaultSession.clearCache(function() {
       console.log('cleaned');
     });
   });

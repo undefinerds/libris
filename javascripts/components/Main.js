@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import SearchGrid from './SearchGrid';
 import styles from '../../stylesheets/main.css';
 import Modal from './Modal';
-
+import path from 'path';
 // Loader :)
 
 class Main extends Component {
@@ -87,6 +87,8 @@ class Main extends Component {
             </label>)}
           <input type="submit" label="Actualizar" />
         </form>
+        <p>Hecho con &hearts; por Jhinel Arcaya, Joseph Perez, Daviannys Miquilena y Alcides Pacheco.</p>
+        <p>Escríbenos a nuestro <a href="mailto:ajhinel@uptag.edu.ve">correo</a> o visítanos en <a href="https://github.com/undefinerds/libris">github.com/undefinerds/libris</a>.</p>
       </Modal>
     )
   }
@@ -100,10 +102,10 @@ class Main extends Component {
             <button id="options" onClick={() => this.setState({...this.state, showOptions: true})}><i className="fa fa-cog fa-2x"></i></button>
           </nav>
           <header><h1>Libris</h1></header>
-          <form id="searchBox" name="searchBox" onSubmit={this.handleSubmit}>
+          <form id="searchBox" name="searchBox" onSubmit={this.handleSubmit} className="formFlex">
             <input type="text" id="searchbox" name="searchbox" onChange={this.handleChange.bind(this)} />
           <label target="searchbox">
-            <img className="center" src="../glass.png" alt="lupa" />
+            <img className="center" src={path.join(process.cwd(), 'public', 'glass.png')} alt="lupa" />
           </label>
           </form>
         </div>

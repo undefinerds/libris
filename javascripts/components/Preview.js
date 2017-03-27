@@ -15,30 +15,45 @@ class Paragraph extends Component {
 class Preview extends Component {
   constructor(props) {
     super(props);
+
+    const i = Number(this.props.params.uri);
+    
     this.state = {
-      showModal: false
+      showModal: false,
+      book: this.props.books[i],
+      i
     };
-    this.i = Number(this.props.params.uri);
-    this.book = this.props.books[Number(this.props.params.uri)];
+   
     this.mountForm = this.mountForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.createLink = this.createLink.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      book: nextProps.books[Number(nextProps.params.uri)]
+    })
   }
 
   spanish(word) {
     word = word.toLowerCase();
     switch(word) {
       case 'author':
-        return 'autor';
+        return 'Autor';
       case 'subject':
-        return 'género';
+        return 'Género';
       case 'pubdate':
-        return 'fecha de publicación';
+        return 'Fecha de publicación';
       case 'description':
-        return 'descripción';
+        return 'Descripción';
       case 'type':
-        return 'tipo';
+        return 'Tipo';
       case 'views':
-        return 'visto';
+        return 'Visto';
+      case 'edition':
+        return 'Edición';
+      case 'editorial':
+        return 'Editorial';
       default:
         return word;
     }
@@ -46,25 +61,37 @@ class Preview extends Component {
 
   handleChange(refs) {
     this.setState({ showModal: false });
-    this.props.editBook(refs, this.i);
+    this.props.editBook(refs, this.state.i);
   }
 
   mountForm() {
     return (
       <Modal onClose={() => this.setState({ showModal: false })}>
-        <Edit book={this.book} onSubmit={this.handleChange} />
+        <Edit book={this.state.book} onSubmit={this.handleChange} />
       </Modal>
     )
   }
 
+  createLink(element) {
+    const { book, i } = this.state;
+    /*return (book.type === 'epub') ?
+    (*/
+      return (<Link to={`/${book.type}/${i}/read`}>{element}</Link>);
+    /*) :
+    (
+      <a href={book.url} target="_blank">{element}</a>
+    );*/
+
+  }
+
   render() {
-    const {book, i} = this;
+    const {book, i} = this.state;
     return (
       <div style={styles} className="preview">
       <nav id="AppBar">
         <button className="no-btn" onClick={hashHistory.goBack}><i className="fa fa-chevron-left fa-2x"></i></button>
         <span className="title">{book && book.title}</span>
-        <Link to={`/${book.type}/${i}/read`}><button className="line">Leer</button></Link>
+        { this.createLink(<button className="line">Leer</button>) }
       </nav>
       <header>
         <h1>{book && book.title}</h1>
@@ -75,13 +102,13 @@ class Preview extends Component {
           <figure className="left">
             <img src={book && book.cover} alt={`Cubierta de ${book.title}`}/>
             <figcaption>
-              <Link to={`/${book.type}/${i}/read`}><button><i className="fa fa-eye"></i> {book.views}</button></Link>
+              {this.createLink(<button><i className="fa fa-eye"></i> {book.views}</button>)}
             </figcaption>
           </figure>
           {[...Object.keys(book)].filter(k => !(['title', 'cover', 'metadata', 'chapters'].includes(k))).map((key, i) => <Paragraph key={i} subtitle={this.spanish(key)} paragraph={book[key]} />)}
         </article>
         <article className="clearfix">
-          <Link to={`/${book.type}/${i}/read`}><button>Leer</button></Link>
+          {this.createLink(<button>Leer</button>)}
         </article>
       </section>
       <article>

@@ -53,3 +53,9 @@
 .modalBox .clearflex {
   align-self: center;
 }
+
+
+.formFlex {
+  flex-direction: column;
+  justify-content: space-around;
+}

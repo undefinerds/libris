@@ -105,6 +105,7 @@ export const INSTRUCTIONS = [
   messageBottom: false,
   message: (<p>También puedes leer a partir de cualquier capítulo, haciendo click a los subtítulos más abajo</p>)
 },
+/*
 {
   x: '45%',
   y: '45%',
@@ -121,7 +122,7 @@ export const INSTRUCTIONS = [
   rightHand: 0,
   messageBottom: false,
   message: (<p><em>«Ab insome custodita dracone»</em> significa "Custodiado por un dragón que no duerme", era común colocar eso en las pertenencias y en las catedrales francesas.</p>)
-},
+},*/
 {
   x: '45%',
   y: '45%',

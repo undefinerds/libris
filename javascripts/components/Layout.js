@@ -32,6 +32,7 @@ class Layout extends Component {
     super(props);
     this.welcome = this.welcome.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
+    this.backMessage = this.backMessage.bind(this);
     this.changeDir = this.changeDir.bind(this);
   }
 
@@ -48,11 +49,17 @@ class Layout extends Component {
   }
 
   handleMessage() {
-    if(this.props.loader.i === (INSTRUCTIONS.length - 1)) {
-      this.props.updateMessage(0);
-      this.props.toggleWelcome();
-    } else {
-      this.props.updateMessage(this.props.loader.i + 1);
+      if(this.props.loader.i === (INSTRUCTIONS.length - 1)) {
+        this.props.updateMessage(0);
+        this.props.toggleWelcome();
+      } else {
+        this.props.updateMessage(this.props.loader.i + 1);
+      }
+  }
+
+  backMessage() {
+    if(this.props.loader.i > 0) {
+      this.props.updateMessage(this.props.loader.i - 1);
     }
   }
 
@@ -67,13 +74,12 @@ class Layout extends Component {
           leftHand={this.props.loader.leftHand}
           rightHand={this.props.loader.rightHand}
           handleMessage={this.handleMessage} />
+          <button className="back" id="backButton" onClick={this.backMessage}>Atrás</button>
       </div>
     )
   }
 
   changeDir(push) {
-    console.log('funciono con ');
-    console.log(push);
     if(push) {
       if(/\/read/gi.test(push)) {
         const i = parseInt(push.slice(1, push.indexOf('r') - 1));

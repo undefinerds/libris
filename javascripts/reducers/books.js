@@ -25,6 +25,18 @@ export default function books(state = [], action) {
       return [
         ...action.data
       ];
+    case 'ADD_BOOKMARK':
+      return [
+        ...state.slice(0, action.i),
+        {
+          ...state[action.i],
+          bookmarks: [
+            ...state.bookmarks,
+            action.data
+          ]
+        },
+        ...state.slice(action.i + 1)
+      ]
     default:
       return state;
   }

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PDF from 'react-pdf';
 
+import { Link, hashHistory } from 'react-router';
+import {ReadingOwl} from './Owl';
+import Modal from './Modal';
+
 class PdfReader extends Component {
 
   constructor(props) {
@@ -24,7 +28,7 @@ class PdfReader extends Component {
     const initLocation = (that.props.params && Number(that.props.params.id) + 1) || that.props.readable.location + 1;
     that.props.updateReadable('UPDATE_READABLE', {
         loaded: true,
-        url: that.props.books[i].url,
+        url: that.props.books[bookId].url,
         location: initLocation
       });
   }
@@ -53,7 +57,8 @@ class PdfReader extends Component {
   render() {
     const uri = Number(this.props.params.uri);
     const { location, url } = this.props.readable;
-    console.log(((Number(location) + 1) * 100 / Number(this.book.flow.length)));
+    console.log(url);
+    
     return (
         <div className="readable">
           <nav id="ReadableBar">
@@ -62,9 +67,9 @@ class PdfReader extends Component {
             <i className="fa fa-smile"></i>
           </div>
           <div className="light">
-            <button onClick={this.toggleAside.bind(this)}><i className="fa fa-bars fa-2x"></i></button>
+            
             <header className="title">{this.book && this.book.metadata && this.book.title}</header>
-            <button onClick={this.bookmarkText}><i className="fa fa-bookmark fa-2x"></i></button>
+
           </div>
           </nav>
           <div className={`${this.book && this.book.metadata && this.book.metadata.subject}`}>
@@ -73,7 +78,7 @@ class PdfReader extends Component {
               <button onClick={this.nextChapter.bind(this)}><i className="fa fa-chevron-right fa-2x"></i></button>
             </nav>
             <section id="container" style={ { maxWidth: '90%', margin: 'auto' } }>
-              <PDF file={url} page={this.state.page} scale="1.0" onDocumentComplete={this._onDocumentCompleted} onPageComplete={this._onPageCompleted} loading={<ReadingOwl bookName='B' />} />
+              <PDF file={url} page={this.state.page} scale={1} onDocumentComplete={this._onDocumentCompleted} onPageComplete={this._onPageCompleted} loading={<ReadingOwl bookName='B' />} />
             </section>
           </div>
           {this.props.readable && this.props.readable.paused && this.displayPauseMessage('¡A descansar!')}

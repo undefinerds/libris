@@ -4,10 +4,8 @@ import Layout from './components/Layout';
 import Main from './components/Main';
 import Preview from './components/Preview';
 import EpubReader from './components/Chapter';
-import Image from './components/Image';
 import NotFound from './components/NotFound';
-import PDFReader from './components/Pdf';
-
+import PdfReader from './components/Pdf.js';
 export default (
   // Searchroute
   <Route path={'/'} component={Layout}>
@@ -16,9 +14,8 @@ export default (
     <Route path={':uri'} component={Preview} />
     <Route path={'epub/:uri/read'} component={EpubReader} />
     <Route path={'epub/:uri/read/:id'} component={EpubReader} />
-    <Route path={'pdf/:uri/read/:id'} component={PDFReader} />
-    <Route path={':uri/image'} component={Image} />
-    <Route path={':uri/image/:id'} component={Image} />
+    <Route path={'pdf/:uri/read'} component={PdfReader} />
+    <Route path={'pdf/:uri/read/:id'} component={PdfReader} />
     <Route path="*" component={NotFound} />
   </Route>
 );

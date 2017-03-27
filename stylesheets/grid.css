@@ -31,3 +31,6 @@
   transform: scale(1.2);
 }
 
+.subtitle {
+  align-self: stretch;
+}
