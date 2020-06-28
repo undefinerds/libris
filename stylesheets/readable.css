@@ -163,3 +163,10 @@
   left: 0%;
   box-sizing: border-box;
 }
+
+.readable .container.centered {
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 4rem 3rem;
+}

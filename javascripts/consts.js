@@ -76,7 +76,7 @@ export const INSTRUCTIONS = [
   y: '45%',
   leftHand: 90,
   rightHand: 0,
-  push: '/2',
+  push: '/0',
   messageBottom: false,
   message: (<p>Puedes revisar todo acerca de este libro</p>),
 },
@@ -136,7 +136,7 @@ export const INSTRUCTIONS = [
   y: '70%',
   leftHand: 0,
   rightHand: 90,
-  push: '/2/read/0',
+  push: '/0/read/0',
   messageBottom: false,
   message: (<p>Puedes pasar a la siguiente página haciendo click en la esquina derecha o con la flecha en el teclado que apunta hacia la derecha.</p>)
 },
@@ -161,7 +161,7 @@ export const INSTRUCTIONS = [
   y: '45%',
   leftHand: 0,
   rightHand: 0,
-  push: '/2/read/2',
+  push: '/0/read/2',
   messageBottom: false,
   message: (<p>Te mostraré un secreto que guarda esta biblioteca...</p>)
 },
