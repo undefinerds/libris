@@ -204,8 +204,7 @@ class Chapter extends Component {
             </nav>
             <article ref="container" onKeyDown={this.arrowKeys.bind(this)} style={ { maxWidth: '100%', maxHeight: '70vh', bottom: '10%'} }>
               <style>{css}</style>
-              <div ref="chapter" className="container"
-              style={{ margin: '4rem 3rem' }}>
+              <div ref="chapter" className="container centered">
                 {innerText}
               </div>
             </article>

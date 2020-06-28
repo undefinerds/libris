@@ -20,7 +20,7 @@ class Preview extends Component {
     
     this.state = {
       showModal: false,
-      book: this.props.books[i],
+      book: props.books[i],
       i
     };
    
@@ -74,13 +74,12 @@ class Preview extends Component {
 
   createLink(element) {
     const { book, i } = this.state;
-    /*return (book.type === 'epub') ?
-    (*/
-      return (<Link to={`/${book.type}/${i}/read`}>{element}</Link>);
-    /*) :
+    console.log(book);
+    return (book.type === 'epub') ?
+    (<Link to={`/${book.type}/${i}/read`}>{element}</Link>) :
     (
       <a href={book.url} target="_blank">{element}</a>
-    );*/
+    )
 
   }
 

@@ -122,6 +122,6 @@
   },
   "homepage": "https://github.com/undefinerds/libris#readme",
   "engines": {
-    "node": "~6.0.0"
+    "node": "6"
   }
 }
